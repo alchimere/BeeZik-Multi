@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--
+			Made by firetonton
+			firetonton@gmail.com
+		-->
+		<link href="style/popup.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="scripts/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="scripts/md5.js"></script>
+		<script type="text/javascript" src="scripts/prototype.js"></script>
+		<script type="text/javascript" src="scripts/song.js"></script>
+		<script type="text/javascript" src="scripts/sort.js"></script>
+		<script type="text/javascript" src="scripts/badge.js"></script>
+		<script type="text/javascript" src="scripts/init_clear.js"></script>
+		<script type="text/javascript" src="scripts/cart_utils.js"></script>
+		<script type="text/javascript" src="scripts/cmd_next.js"></script> <!-- TODO remplacer par un tab.js  -->
+		<script type="text/javascript" src="scripts/updateTopBar.js"></script>
+		<script type="text/javascript" src="scripts/functions_popup.js"></script>
+		<script type="text/javascript" src="scripts/bg_following.js"></script>
+		<script type="text/javascript" src="scripts/popup_fill_playlist.js"></script>
+		<script type="text/javascript" src="scripts/popup_fill_follow.js"></script>
+		<script type="text/javascript">
+			var faceBookLike = '<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FBeeZik-Multi-Extension-chrome-by-firetonton%2F172461369439346&amp;layout=button_count&amp;show_faces=false&amp;width=400&amp;action=like&amp;colorscheme=light&amp;height=21"' +
+						'scrolling="no"' +
+						'frameborder="0"' +
+						'style="border:none; overflow:hidden; width:100px; height:21px; float:right;" allowTransparency="true"></iframe>';
+			if (localStorage['BeeZikExt_option_hide_cpt_FB'] != 'yes')
+				setTimeout("$('cpt_FB').innerHTML = faceBookLike;", 100);
+		</script>
+	</head>
+	<body id="body">
+
+		<!-- Header -->
+		<div id="header">
+
+			<!-- Audio player -->
+			<audio id="audioPlayer" src="" onended="stopZik()" ontimeupdate="updateProgress(this);"></audio>
+			<div id="divPlayer">
+				<div id="progressPlayer">
+				</div>
+				<div id="playerData">
+					<img src="images/stop.gif" style="margin-bottom: -2" onclick="stopZik()"/>
+					<div style="display:inline-block;">
+						<span class="name" id="playingArtist" style="font-size:15px;">Artist</span>
+						- <span class="title" id="playingTitle" style="font-size:15px;">title</span>
+					</div>
+				</div>
+			</div>
+
+			<img id="logo" src="images/logo.png" onclick="open_tab('http://www.beezik.com')"/>
+			<span style="font-size:10px;">V 3.4</span>
+
+			<!-- Compteur FaceBook -->
+			<div id="cpt_FB" style="border:none; overflow:hidden; width:100px; height:21px; float:right; display:inline">
+			</div>
+
+			<div id="boutons" style="position:relative; height:20px;">
+
+				<div id="maj" class="clickable" onclick="open_tab('http://forum.beezik.com/forum/viewtopic.php?f=48&t=10500')">
+					A propos
+				</div>
+
+				<div class="inter_menu">
+				</div>
+
+				<div id="options" 			class="clickable" onclick="open_tab(chrome.extension.getURL('options.html'))">
+					Options
+				</div>
+
+				<div class="inter_menu">
+				</div>
+
+				<div id="erease_all"		class="clickable" onclick="erease_all(); fill_list(); updateTopBar();">
+					Tout retirer
+				</div>
+
+				<div class="inter_menu">
+				</div>
+
+				<div id="erease_downloaded" class="clickable" onclick="erease_downloaded(); fill_list();">
+					Retirer morceaux téléchargés
+				</div>
+			</div>
+
+			<img id="new_img" src="images/new_corner.gif"/>
+		</div>
+		<br/>
+
+		<!-- Liste de musiques -->
+		<div id="contenu">
+
+			<div id="playlist">
+				<div style="text-align:center; margin-bottom:8px;">
+					<div class="activeContentButton">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
+					&nbsp; <div class="inactiveContentButton" id="infoSortiesButton"
+							onclick="show_id('playlist');show_id('infoSorties');">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
+				</div>
+
+				<!-- Liste de musiques -->
+				<div id="contenuPlaylist">
+					Loading ...
+				</div>
+			</div>
+
+			<div id="infoSorties" style="display:none;">
+				<div style="text-align:center; margin-bottom:8px;">
+					<div class="inactiveContentButton"
+						 onclick="show_id('playlist');show_id('infoSorties');">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
+					&nbsp; <div class="activeContentButton">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
+				</div>
+
+				<!-- Info sorties -->
+				<div id="contenuInfo">
+					Error ...
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Import/Export de playlists -->
+		<div id="contenu_import_export">
+			<div id="import_export" class="clickable" onclick="show_id('import_export_form'); $('zone_import_export').focus()">
+				Importer/Exporter une playlist
+			</div>
+			<div id="import_export_form" style="display:none; padding:8px">
+				<textarea cols="44" rows="7" id="zone_import_export">
+				</textarea>
+				<div style="position:relative; height:18px; margin-top:8px;">
+					<div class="clickable" id="importButton" onclick="importer()">
+						&nbsp;&nbsp;Importer&nbsp;
+					</div>
+					<span>
+						&nbsp;
+					</span>
+					<div class="clickable" id="exportButton" onclick="exporter()">
+						&nbsp;&nbsp;Exporter&nbsp;&nbsp;
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$('zone_import_export').innerHTML = '';
+		</script>
+
+		<!-- Recherche de playlist -->
+		<div id="contenu_search">
+			<div id="search" class="clickable" onclick="show_id('search_form');">
+				Rechercher une playlist
+			</div>
+			<div id="search_form" style="display:none; padding:8px;">
+				<input	name="search_area" id="search_area"/>
+				&nbsp;
+				<div class="clickable" id="searchButton" onclick="search_playlist('#PlaylistExt# ' + $('search_area').value)">
+					&nbsp;&nbsp;Chercher&nbsp;&nbsp;
+				</div>
+			</div>
+		</div>
+
+
+		<div id="tmp" style="display:none">
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		setTimeout("fill_list(); fill_followed_section();", 42);
+	</script>
+</html>

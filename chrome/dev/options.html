@@ -1,0 +1,586 @@
+<head>
+	<!--
+		Made by firetonton
+		firetonton@gmail.com
+	-->
+	<style>
+		body {
+			font-size : 4px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		table {
+			border-collapse : collapse;
+		}
+		
+		img {
+			cursor : pointer;
+		}
+		
+		.clickable {
+			cursor : pointer;
+		}
+		
+		#header {
+			width : 800px;
+			margin : auto;
+		}
+		
+		#logo {
+			display : inline;
+		}
+		
+		#down_all {
+			font-weight : bold;
+			font-size : 12px;
+			border-radius: 8px;
+			width : 140px;
+			text-align : center;
+			background-color : #F7AE23;
+			float : right;
+			margin-top : 5px;
+		}
+		
+		#erease_downloaded {
+			font-weight : bold;
+			font-size : 2.8em;
+			border-radius: 8px;
+			width : 180px;
+			text-align : center;
+			background-color : #F7AE23;
+			float : right;
+			margin-top : 5px;
+		}
+		
+		#erease_downloaded:hover {
+			color : white;
+		}
+		
+		#erease_all {
+			font-weight : bold;
+			font-size : 2.8em;
+			border-radius: 8px;
+			width : 80px;
+			text-align : center;
+			background-color : #EDEDED;
+			float : right;
+			margin-top : 5px;
+		}
+		
+		.inter_menu {
+			width : 3px;
+			height : 10px;
+			float : right;
+		}
+		
+		#contenu {
+			border-style : solid;
+			border-color : black;
+			border-width : 0px;
+			border-radius: 8px;
+			padding : 4px;
+			
+			width : 800px;
+			
+			margin : auto;
+			
+			font-size: 3px;/*.75em;*/
+			font-family: Arial, Helvetica, sans-serif;
+			letter-spacing: normal;
+			font-weight: bold;
+			
+			box-shadow: 0px 0px 10px #888;
+		}
+		
+		#contenuTable {
+			width : 800px;
+			font-size : 15px;
+		}
+		
+		a {
+			text-decoration : none;
+		}
+		
+		.name {
+			color : black;/*#F7AE23;*/
+			text-decoration : none;
+			font-size : 13px;
+			font-weight : bold;
+		}
+		
+		.title {
+			font-style : italic;
+			color : #666666;/*#F7AE23;*/
+			text-decoration : none;
+			font-size : 13px;
+			font-weight : bold;
+		}
+		
+		.option_activee {
+			font-weight : bold;
+			font-size : 12px;
+			border-radius: 8px;
+			text-align : center;
+			background-color : #F7AE23;
+			cursor: pointer;
+			
+			-webkit-box-shadow: 0px 0px 4px #000 inset;
+		}
+		
+		.option_desactivee {
+			font-weight : bold;
+			font-size : 12px;
+			border-radius: 8px;
+			text-align : center;
+			background-color : #EDEDED;
+			cursor: pointer;
+			
+			-webkit-box-shadow: 0px 0px 5px #000;
+		}
+		
+		.ligne_gris {
+			background-color : #EEEEEE;
+			cursor : pointer;
+		}
+		
+		.ligne_blanc {
+			cursor : pointer;
+		}
+		
+		.ligne_blanc:hover {
+			background-color : #F7AE23;
+		}
+	
+		.ligne_gris:hover {
+			background-color : #F7AE23;
+		}
+		
+		h1 {
+			font-size : 20px;
+			font-style : italic;
+			text-align : center;
+			color : #444;
+		}
+		
+		.hr {
+			width : 100%;
+			height : 1px;
+			background-color : #fff;
+			margin-bottom : 20px;
+			box-shadow: 0px 10px 10px #ccc;
+		}
+	</style>
+</head>
+<body id="body">
+	<div id="header">
+		<img id="logo" style="float:left;" src="images/logo.png" onclick="open_tab('http://www.beezik.com')">
+		<h1>
+			{ Configuration }
+		</h1>
+	</div>
+	<br/>
+	<div id="contenu">
+		<!--
+			Options :
+				BeeZikExt_option_savePlaylistOnClose	=> Sauvegarde de l'état de la liste à la fermeture du navigateur
+				
+				BeeZikExt_DRMfree_start_h 				=> Plage sans DRM
+				BeeZikExt_DRMfree_start_m
+				BeeZikExt_DRMfree_end_h
+				BeeZikExt_DRMfree_end_m
+				BeeZikExt_option_plageNoDRM
+				
+				BeeZikExt_option_hide_cpt_FB			=> Affichage du bouton j'aime facebook
+				
+				BeeZikExt_option_import					=> Action à l'appui sur le bouton d'import
+				
+				BeeZikExt_option_del_end				=> Suppression de la playlist une fois téléchargée
+		-->
+		<table id="contenuTable">
+			<!-- Sauvegarde de l'état de la liste à la fermeture du navigateur -->
+			<tr>
+				<td width="100">
+					<span class="option_desactivee" id="bouton_option_savePlaylistOnClose" onclick="change_option_savePlaylistOnClose()">
+						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
+					</span>
+				</td>
+				<td>
+					Sauvegarde de l'état de la liste à la fermeture du navigateur
+				</td>
+				<script type="text/javascript">
+					function	actualiser_option_savePlaylistOnClose()
+					{
+						var el = document.getElementById('bouton_option_savePlaylistOnClose');
+						
+						if (!el)
+							return ;
+						
+						if (localStorage['BeeZikExt_option_savePlaylistOnClose'] == 'yes')
+						{
+								el.className = 'option_activee';
+								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
+						}
+						else
+						{
+								el.className = 'option_desactivee';
+								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
+						}
+					}
+					
+					function	change_option_savePlaylistOnClose()
+					{
+						var		now = localStorage['BeeZikExt_option_savePlaylistOnClose'];
+						
+						if (now == 'yes')
+							localStorage['BeeZikExt_option_savePlaylistOnClose'] = 'no';
+						else
+							localStorage['BeeZikExt_option_savePlaylistOnClose'] = 'yes';
+						actualiser_option_savePlaylistOnClose();
+					}
+					
+					actualiser_option_savePlaylistOnClose();
+				</script>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<!--<hr/>-->
+					<div class="hr">
+					</div>
+				</td>
+			</tr>
+			
+			<!-- Plage sans DRM -->
+			<!--
+			<tr>
+				<td width="100">
+					<span class="option_desactivee" id="bouton_option_plageNoDRM" onclick="change_option_plageNoDRM()">
+						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
+					</span>
+				</td>
+				<td>
+					Alerte pour la plage horaire sans DRM (horaires :  de <input name="start_h"	id="start_h" 	onkeyup="check_hour(this)" type="text" size="2" maxlength="2"/>h<input name="start_m" 	onkeyup="check_min(this)" id="start_m" 	type="text" size="2" maxlength="2"/>min
+																		à <input name="end_h"	id="end_h"		onkeyup="check_hour(this)" type="text" size="2" maxlength="2"/>h<input name="end_m" 	onkeyup="check_min(this)" id="end_m" 	type="text" size="2" maxlength="2"/>min
+																		<span 	class="option_desactivee" 		id="bouton_enr_plageNoDRM" 			onclick="change_option_plageNoDRM_horaires(this)">&nbsp;&nbsp;Enregistrer les horaires&nbsp;&nbsp;</span>)
+				</td>
+				<script type="text/javascript">
+					if (!localStorage['BeeZikExt_DRMfree_start_h'])
+						localStorage['BeeZikExt_DRMfree_start_h']	=	19;
+					if (!localStorage['BeeZikExt_DRMfree_start_m'])
+						localStorage['BeeZikExt_DRMfree_start_m']	=	0;
+					if (!localStorage['BeeZikExt_DRMfree_end_h'])
+						localStorage['BeeZikExt_DRMfree_end_h']		=	0;
+					if (!localStorage['BeeZikExt_DRMfree_end_m'])
+						localStorage['BeeZikExt_DRMfree_end_m']		=	0;
+						
+					document.getElementById('start_h').value = localStorage['BeeZikExt_DRMfree_start_h'];
+					document.getElementById('start_m').value = localStorage['BeeZikExt_DRMfree_start_m'];
+					document.getElementById('end_h').value = localStorage['BeeZikExt_DRMfree_end_h'];
+					document.getElementById('end_m').value = localStorage['BeeZikExt_DRMfree_end_m'];
+					
+					function	check_hour(el)
+					{
+						var		nb = parseInt(el.value);
+						
+						document.getElementById('bouton_enr_plageNoDRM').className = 'option_desactivee';
+						document.getElementById('bouton_enr_plageNoDRM').innerHTML = '&nbsp;&nbsp;Enregistrer les horaires&nbsp;&nbsp;';
+						
+						if (isNaN(nb))
+							el.value = '';
+						if (nb < 0 || nb >= 24)
+							el.value = '';
+						
+						var		new_str = '';
+						
+						for (var i = 0; i < el.value.length; i++)
+						{
+							if (el.value.charCodeAt(i) >= ('0').charCodeAt(0) && el.value.charCodeAt(i) <= ('9').charCodeAt(0))
+								new_str += el.value[i];
+						}
+						el.value = new_str;
+					}
+					
+					function	check_min(el)
+					{
+						var		nb = parseInt(el.value);
+						
+						document.getElementById('bouton_enr_plageNoDRM').className = 'option_desactivee';
+						document.getElementById('bouton_enr_plageNoDRM').innerHTML = '&nbsp;&nbsp;Enregistrer les horaires&nbsp;&nbsp;';
+						
+						if (isNaN(nb))
+							el.value = '';
+						if (nb < 0 || nb >= 60)
+							el.value = '';
+						
+						var		new_str = '';
+						
+						for (var i = 0; i < el.value.length; i++)
+						{
+							if (el.value.charCodeAt(i) >= ('0').charCodeAt(0) && el.value.charCodeAt(i) <= ('9').charCodeAt(0))
+								new_str += el.value[i];
+						}
+						el.value = new_str;
+					}
+					
+					function	change_option_plageNoDRM_horaires(el)
+					{
+						if (!el)
+							return ;
+						
+						if (el.className == 'option_desactivee')
+						{
+								localStorage['BeeZikExt_DRMfree_start_h']	= document.getElementById('start_h').value;
+								localStorage['BeeZikExt_DRMfree_start_m']	= document.getElementById('start_m').value;
+								localStorage['BeeZikExt_DRMfree_end_h']		= document.getElementById('end_h').value;
+								localStorage['BeeZikExt_DRMfree_end_m']		= document.getElementById('end_m').value;
+								el.className = 'option_activee';
+								el.innerHTML = '&nbsp;&nbsp;Horaires enregistrés&nbsp;&nbsp;';
+								
+								//setBadgeColor();
+								chrome.extension.sendRequest({func: "setBadgeColor"}, function(response) {});
+						}
+						else
+						{
+								el.className = 'option_desactivee';
+								el.innerHTML = '&nbsp;&nbsp;Enregistrer les horaires&nbsp;&nbsp;';
+						}
+					}
+				
+					function	actualiser_option_plageNoDRM()
+					{
+						var el = document.getElementById('bouton_option_plageNoDRM');
+						
+						if (!el)
+							return ;
+						
+						if (localStorage['BeeZikExt_option_plageNoDRM'] == 'yes')
+						{
+								el.className = 'option_activee';
+								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
+						}
+						else
+						{
+								el.className = 'option_desactivee';
+								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
+						}
+					}
+					
+					function	change_option_plageNoDRM()
+					{
+						var		now = localStorage['BeeZikExt_option_plageNoDRM'];
+						
+						if (now == 'yes')
+							localStorage['BeeZikExt_option_plageNoDRM'] = 'no';
+						else
+							localStorage['BeeZikExt_option_plageNoDRM'] = 'yes';
+						
+						actualiser_option_plageNoDRM();
+						chrome.extension.sendRequest({func: "setBadgeColor"}, function(response) {});
+					}
+					
+					actualiser_option_plageNoDRM();
+				</script>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<hr/>
+					
+					<div class="hr">
+					</div>
+				</td>
+			</tr>
+			-->
+			<script type="text/javascript">
+				localStorage['BeeZikExt_option_plageNoDRM'] = 'no';
+			</script>
+			
+			<!-- Affichage du compteur FB -->
+			<tr>
+				<td width="100">
+					<span class="option_desactivee" id="bouton_option_hide_cpt_FB" onclick="change_option_hide_cpt_FB()">
+						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
+					</span>
+				</td>
+				<td>
+					Masquer <!--le compteur "J'aime" FaceBook-->
+					<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FBeeZik-Multi-Extension-chrome-by-firetonton%2F172461369439346&amp;layout=button_count&amp;show_faces=false&amp;width=400&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+				</td>
+				<script type="text/javascript">
+					function	actualiser_option_hide_cpt_FB()
+					{
+						var el = document.getElementById('bouton_option_hide_cpt_FB');
+						
+						if (!el)
+							return ;
+						
+						if (localStorage['BeeZikExt_option_hide_cpt_FB'] == 'yes')
+						{
+								el.className = 'option_activee';
+								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
+						}
+						else
+						{
+								el.className = 'option_desactivee';
+								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
+						}
+					}
+					
+					function	change_option_hide_cpt_FB()
+					{
+						var		now = localStorage['BeeZikExt_option_hide_cpt_FB'];
+						
+						if (now == 'yes')
+							localStorage['BeeZikExt_option_hide_cpt_FB'] = 'no';
+						else
+							localStorage['BeeZikExt_option_hide_cpt_FB'] = 'yes';
+						actualiser_option_hide_cpt_FB();
+					}
+					
+					actualiser_option_hide_cpt_FB();
+				</script>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<!--<hr/>-->
+					<div class="hr">
+					</div>
+				</td>
+			</tr>
+			
+			<!-- Action après clic sur une musique -->
+			<tr>
+				<td width="100">
+					<span class="option_activee" id="bouton_option_import" onclick="">
+						&nbsp;&nbsp;Choisir&nbsp;&nbsp;
+					</span>
+				</td>
+				<td>
+					Action à l'import de playlist : 
+					
+					<span class="option_desactivee" id="import_b1" onclick="change_option_import(this.id)">
+						&nbsp;&nbsp;Remplacer&nbsp;&nbsp;
+					</span>
+					&nbsp;
+					<span class="option_desactivee" id="import_b2" onclick="change_option_import(this.id)">
+						&nbsp;&nbsp;Mettre à la suite&nbsp;&nbsp;
+					</span>
+					&nbsp;
+					<span class="option_desactivee" id="import_b3" onclick="change_option_import(this.id)">
+						&nbsp;&nbsp;Demander&nbsp;&nbsp;
+					</span>
+				</td>
+				<script type="text/javascript">
+					function	actualiser_option_import()
+					{
+						var		option_is_set = false;
+						
+						for (var i = 1; i <= 3; i++)
+						{
+							if (localStorage['BeeZikExt_option_import'] == ('import_b' + i))
+							{
+								document.getElementById('import_b' + i).className = 'option_activee';
+								option_is_set = true;
+							}
+							else
+								document.getElementById('import_b' + i).className = 'option_desactivee';
+						}
+						
+						if (!option_is_set)
+						{
+							document.getElementById('import_b3').className = 'option_activee';
+							localStorage['BeeZikExt_option_import'] = 'import_b3';
+						}
+					}
+					
+					function	change_option_import(id_bouton)
+					{
+						switch (id_bouton)
+						{
+							case 'import_b1' :
+							case 'import_b2' :
+							case 'import_b3' :
+									localStorage['BeeZikExt_option_import'] = id_bouton;
+								break;
+							default :
+						}
+						actualiser_option_import();
+					}
+					
+					actualiser_option_import();
+				</script>
+			</tr>
+			
+
+			<tr>
+				<td colspan="2">
+					<!--<hr/>-->
+					<div class="hr">
+					</div>
+				</td>
+			</tr>
+			
+
+			<!-- Suppression de tout une fois la liste finie -->
+			<tr>
+				<td width="100">
+					<span class="option_desactivee" id="bouton_option_del_end" onclick="change_option_del_end()">
+						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
+					</span>
+				</td>
+				<td>
+					Supprimer le contenu de la liste une fois celle-ci terminée
+				</td>
+				<script type="text/javascript">
+					function	actualiser_option_del_end()
+					{
+						var el = document.getElementById('bouton_option_del_end');
+						
+						if (!el)
+							return ;
+						
+						if (localStorage['BeeZikExt_option_del_end'] == 'yes')
+						{
+								el.className = 'option_activee';
+								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
+						}
+						else
+						{
+								el.className = 'option_desactivee';
+								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
+						}
+					}
+					
+					function	change_option_del_end()
+					{
+						var		now = localStorage['BeeZikExt_option_del_end'];
+						
+						if (now == 'yes')
+							localStorage['BeeZikExt_option_del_end'] = 'no';
+						else
+							localStorage['BeeZikExt_option_del_end'] = 'yes';
+						actualiser_option_del_end();
+					}
+					
+					actualiser_option_del_end();
+				</script>
+			</tr>
+		</table>
+	</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

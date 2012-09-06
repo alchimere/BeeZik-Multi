@@ -1,0 +1,381 @@
+/*
+ *		Made by firetonton
+ *		firetonton@gmail.com
+ */
+
+/* Just some basics for styling webkit scrollbars */
+/* This is the entire scrollbar unit. */
+::-webkit-scrollbar {
+	background: #FFF;
+	width: 10px;
+	background-color: transparent;
+	z-index:0;
+}
+/* This is the little button at the start and end of the scrollbar. */
+/*::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+	background-color: transparent;
+	display: block;
+	height: 4px;
+}*/
+/* This is the background which the scrollbar moves in. */
+::-webkit-scrollbar-track {
+	background: #FFF;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-border-radius: 5px;
+}
+
+/* This will style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 5px;
+	background: #F7AE23;/*rgba(255,248,69,0.8);*/
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+/* This will style the scrollbar thumb when the window is inactive */
+/*::-webkit-scrollbar-thumb:window-inactive {
+ background: rgba(255,0,0,0.4);
+}*/
+
+
+
+body {
+	font-size : 4px;
+	font-family: Arial, Helvetica, sans-serif;
+	overflow-x : hidden;
+}
+
+table {
+	border-collapse : collapse;
+}
+
+img {
+	cursor : pointer;
+}
+
+a {
+	text-decoration : none;
+}
+
+td div {
+	overflow : hidden;
+}
+
+.clickable {
+	cursor : pointer;
+}
+
+.inter_menu {
+	width : 3px;
+	height : 10px;
+	float : left;
+}
+
+.name {
+	color : black;
+	text-decoration : none;
+	font-size : 11px;
+	font-weight : bold;
+	overflow : hidden;
+	height : 15px;
+	word-wrap : break-word;
+}
+
+.title {
+	font-style : italic;
+	color : #666666;
+	text-decoration : none;
+	font-size : 11px;
+	font-weight : bold;
+	overflow : hidden;
+	height : 15px;
+}
+
+.ligne_gris {
+	background-color : #EEEEEE;
+	cursor : pointer;
+	overflow : hidden;
+}
+
+.ligne_blanc {
+	cursor : pointer;
+	overflow : hidden;
+}
+
+.ligne_blanc:hover {
+	background-color : #F7AE23;
+}
+
+.ligne_gris:hover {
+	background-color : #F7AE23;
+}
+
+#new_img {
+	position : absolute;
+	right: 0px;
+	top: 0px;
+}
+
+#divPlayer {
+	height : 25px;
+	font-size : 20px;
+	border-radius : 8px;
+	padding-left : 8px;
+	box-shadow : 0px 0px 5px #444 inset;
+	margin-bottom : 8px;
+	overflow : hidden;
+	display : none;
+	position : relative;
+}
+
+#progressPlayer {
+	width: 0;
+	height: 100%;
+	padding: 0px;
+	background-color : #F7AE23;
+	position: absolute;
+	left: 0;
+	border-radius: 8px;
+	opacity: 0.4;
+}
+
+#playerData {
+	position: absolute;
+}
+
+#header {
+	width : 410px;
+}
+
+#logo {
+	display : inline;
+}
+
+#erease_downloaded {
+	font-weight : bold;
+	font-size : 2.8em;
+	border-radius: 8px;
+	width : 180px;
+	text-align : center;
+	background-color : #F7AE23;
+	float : left;
+	margin-top : 5px;
+	-webkit-box-shadow: 0px 0px 3px #000;
+}
+
+#erease_downloaded:hover {
+	color : white;
+}
+
+#erease_downloaded:active {
+	-webkit-box-shadow: 0px 0px 3px #000 inset;
+}
+
+#erease_all {
+	font-weight : bold;
+	font-size : 2.8em;
+	border-radius: 8px;
+	width : 80px;
+	text-align : center;
+	background-color : #EDEDED;
+	float : left;
+	margin-top : 5px;
+	color : #585858;
+	-webkit-box-shadow: 0px 0px 3px #000;
+}
+
+#erease_all:hover {
+	color : black;
+}
+
+#erease_all:active {
+	-webkit-box-shadow: 0px 0px 3px #000 inset;
+}
+
+#options {
+	font-weight : bold;
+	font-size : 2.8em;
+	border-radius: 8px;
+	width : 60px;
+	text-align : center;
+	background-color : #EDEDED;
+	float : left;
+	margin-top : 5px;
+	color : #585858;
+	-webkit-box-shadow: 0px 0px 3px #000;
+}
+
+#options:hover {
+	color : black;
+}
+
+#options:active {
+	-webkit-box-shadow: 0px 0px 3px #000 inset;
+}
+
+#maj {
+	font-weight : bold;
+	font-size : 2.8em;
+	border-radius: 8px;
+	width : 70px;
+	text-align : center;
+	background-color : #EDEDED;
+	float : left;
+	margin-top : 5px;
+	color : #585858;
+	box-shadow: 0px 0px 3px #000;
+}
+
+#maj:hover {
+	color : black;
+}
+
+#maj:active {
+	-webkit-box-shadow: 0px 0px 3px #000 inset;
+}
+
+.activeContentButton {
+	width:45%;
+	border-radius: 0px 0px 8px 8px;
+	background-color:#F7AE23;
+	display:inline-block;
+	font-size : 1.1em;
+	cursor : pointer;
+	box-shadow : 0px 1px 2px #888;
+}
+
+.activeContentButton:hover {
+	color:white;
+}
+
+.inactiveContentButton {
+	width:45%;
+	border-radius: 0px 0px 8px 8px;
+	background-color:#EDEDED;
+	display:inline-block;
+	font-size : 1.1em;
+	color : #585858;
+	cursor : pointer;
+	box-shadow : 0px 1px 2px #888;
+}
+
+.inactiveContentButton:hover {
+	color:black;
+}
+
+#import_export {
+	font-weight : bold;
+	font-size : 12px;
+	border-radius: 8px;
+	width : 100%;
+	text-align : center;
+	background-color : #F7AE23;
+	box-shadow: 0px 0px 5px #444;
+}
+
+#importButton, #exportButton {
+	background-color:#F7AE23;
+	border-radius: 8px;
+	width:50%;
+	display:inline;
+	box-shadow: 0px 0px 5px #444;
+}
+
+
+#import_export:hover, #importButton:hover, #exportButton:hover {
+	color : white;
+}
+
+#contenu_import_export {
+	border-style : solid;
+	border-color : black;
+	border-width : 0px;
+	border-radius: 8px;
+	
+	margin-top : 10px;
+	
+	text-align : center;
+	font-size : 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: normal;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px #444 inset;
+}
+
+#zone_import_export, #search_area {
+	border-style : solid;
+	border-color : black;
+	border-width : 0px;
+	border-radius: 3px;
+	box-shadow: 0px 0px 5px #444 inset;
+}
+
+#search {
+	font-weight : bold;
+	font-size : 12px;
+	border-radius: 8px;
+	width : 100%;
+	text-align : center;
+	background-color : #F7AE23;
+	box-shadow: 0px 0px 5px #444;
+}
+
+#search:hover {
+	color : white;
+}
+
+#contenu_search {
+	border-style : solid;
+	border-color : black;
+	border-width : 0px;
+	border-radius: 8px;
+	
+	margin-top : 10px;
+	
+	text-align : center;
+	font-size : 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: normal;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px #444 inset;
+}
+
+#searchButton {
+	background-color:#F7AE23;
+	border-radius: 8px;
+	width:50%;
+	display:inline;
+	box-shadow: 0px 0px 5px #444;
+}
+
+#searchButton:hover {
+	color : white;
+}
+
+#contenu {
+	border-radius: 8px;
+	
+	max-height : 450px;
+	
+	font-size: 2.5em;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: normal;
+	font-weight: bold;
+	
+	box-shadow: 0px 0px 5px #444 inset;
+	padding : 1px 5px 5px 5px;
+}
+
+#contenuPlaylist, #contenuInfo {
+	max-height : 420px;
+	
+	overflow-y : auto;
+	
+	scrollbar-face-color:#000033;
+	scrollbar-highlight-color:#000022;
+	scrollbar-3dlight-color:#000066; 
+	scrollbar-darkshadow-color:#000066; 
+	scrollbar-shadow-color:#000077; 
+	scrollbar-arrow-color:#000000; 
+	scrollbar-track-color:#000077;
+}
+

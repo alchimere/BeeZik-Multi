@@ -1,0 +1,5 @@
+* TODO Gestion des albums
+* DONE Gestion des infos sorties
+  CLOSED: [2012-04-21 Sat 22:23]
+* DONE Rétablissement de la suppression des morceaux uns pas uns DONE ?
+  CLOSED: [2012-04-21 Sat 22:22]

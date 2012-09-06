@@ -1,0 +1,18 @@
+<head>
+	<!--
+		Made by firetonton
+		firetonton@gmail.com
+	-->
+</head>
+<body style="display:none">
+	<form action="http://forum.beezik.com/forum/search.php" method="post" id="search"> 
+		<fieldset> 
+			<input name="keywords" id="keywords" type="hidden"value=""/> 
+		</fieldset> 
+	</form>
+	<script type="text/javascript">
+		document.getElementById('keywords').value = localStorage['BeeZikExt_search_playlist'];
+		localStorage['BeeZikExt_search_playlist'] = null;
+		document.getElementById('search').submit();
+	</script>
+</body>

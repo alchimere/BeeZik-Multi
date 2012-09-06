@@ -1,0 +1,22 @@
+<!-- Page de notification de passage en horaire sans DRM -->
+<head>
+	<!--
+		Made by firetonton
+		firetonton@gmail.com
+	-->
+	<script type="text/javascript">
+		function	open_tab(str)
+		{
+			chrome.tabs.create({ url: str });
+		}
+		setTimeout('window.close()', 7000);
+	</script>
+</head>
+<html>
+	<div onclick="open_tab('http://beezik.com')" style="cursor:pointer">
+			<img src="logo.png" /> 
+			<span style="font-family:'Comic Sans Ms'; color:black;">
+				Passage en horaire hors DRM
+			</span>
+	</div>
+</html>
