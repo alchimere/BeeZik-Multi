@@ -34,7 +34,7 @@ function	initializeExt()
 	// Initialisation du badge
 	set_badge_text(get_nb_song_to_dl().toString());
 	setBadgeColor();
-	setTimeout("updateFollowedArtists()", 500);
+	setTimeout(updateFollowedArtists, 500);
 }
 
 function	erease_all()

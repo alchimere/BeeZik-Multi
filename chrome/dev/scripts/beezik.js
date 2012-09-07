@@ -4,6 +4,10 @@
 		firetonton@gmail.com
 	*/
 
+/*$('.infosOff').click(function () {
+	alert('YES !!!');
+});*/
+
 // TODO enlever ća ...
 var callTopBarUpdate = 'javascript:eval(document.getElementById(&quot;refreshTopBar&quot;).innerHTML)';
 
