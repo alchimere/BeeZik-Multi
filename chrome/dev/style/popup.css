@@ -150,7 +150,7 @@ td div {
 	display : inline;
 }
 
-#erease_downloaded {
+#erase_downloaded {
 	font-weight : bold;
 	font-size : 2.8em;
 	border-radius: 8px;
@@ -162,15 +162,15 @@ td div {
 	-webkit-box-shadow: 0px 0px 3px #000;
 }
 
-#erease_downloaded:hover {
+#erase_downloaded:hover {
 	color : white;
 }
 
-#erease_downloaded:active {
+#erase_downloaded:active {
 	-webkit-box-shadow: 0px 0px 3px #000 inset;
 }
 
-#erease_all {
+#erase_all {
 	font-weight : bold;
 	font-size : 2.8em;
 	border-radius: 8px;
@@ -183,11 +183,11 @@ td div {
 	-webkit-box-shadow: 0px 0px 3px #000;
 }
 
-#erease_all:hover {
+#erase_all:hover {
 	color : black;
 }
 
-#erease_all:active {
+#erase_all:active {
 	-webkit-box-shadow: 0px 0px 3px #000 inset;
 }
 
@@ -212,7 +212,7 @@ td div {
 	-webkit-box-shadow: 0px 0px 3px #000 inset;
 }
 
-#maj {
+#apropos {
 	font-weight : bold;
 	font-size : 2.8em;
 	border-radius: 8px;
@@ -225,11 +225,11 @@ td div {
 	box-shadow: 0px 0px 3px #000;
 }
 
-#maj:hover {
+#apropos:hover {
 	color : black;
 }
 
-#maj:active {
+#apropos:active {
 	-webkit-box-shadow: 0px 0px 3px #000 inset;
 }
 

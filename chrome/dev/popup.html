@@ -7,8 +7,8 @@
 		-->
 		<link href="style/popup.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="scripts/jquery-1.7.1.js"></script>
-		<script type="text/javascript" src="scripts/md5.js"></script>
 		<script type="text/javascript" src="scripts/prototype.js"></script>
+		<script type="text/javascript" src="scripts/md5.js"></script>
 		<script type="text/javascript" src="scripts/song.js"></script>
 		<script type="text/javascript" src="scripts/sort.js"></script>
 		<script type="text/javascript" src="scripts/badge.js"></script>
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 
-			<img id="logo" src="images/logo.png" onclick="open_tab('http://www.beezik.com')"/>
+			<img id="logo" src="images/logo.png"/>
 			<span style="font-size:10px;">V 3.5</span>
 
 			<!-- Compteur FaceBook -->
@@ -52,28 +52,28 @@
 
 			<div id="boutons" style="position:relative; height:20px;">
 
-				<div id="maj" class="clickable" onclick="open_tab('http://forum.beezik.com/forum/viewtopic.php?f=48&t=10500')">
+				<div id="apropos" 			class="clickable">
 					A propos
 				</div>
 
 				<div class="inter_menu">
 				</div>
 
-				<div id="options" 			class="clickable" onclick="open_tab(chrome.extension.getURL('options.html'))">
+				<div id="options" 			class="clickable">
 					Options
 				</div>
 
 				<div class="inter_menu">
 				</div>
 
-				<div id="erease_all"		class="clickable" > <!--</div>onclick="erease_all(); fill_list(); updateTopBar();">-->
+				<div id="erase_all"			class="clickable" >
 					Tout retirer
 				</div>
 
 				<div class="inter_menu">
 				</div>
 
-				<div id="erease_downloaded" class="clickable" onclick="erease_downloaded(); fill_list();">
+				<div id="erase_downloaded" 	class="clickable">
 					Retirer morceaux téléchargés
 				</div>
 			</div>
@@ -88,8 +88,7 @@
 			<div id="playlist">
 				<div style="text-align:center; margin-bottom:8px;">
 					<div class="activeContentButton">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
-					&nbsp; <div class="inactiveContentButton" id="infoSortiesButton"
-							onclick="show_id('playlist');show_id('infoSorties');">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
+					&nbsp; <div class="inactiveContentButton" id="infoSortiesButton">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
 				</div>
 
 				<!-- Liste de musiques -->
@@ -100,8 +99,7 @@
 
 			<div id="infoSorties" style="display:none;">
 				<div style="text-align:center; margin-bottom:8px;">
-					<div class="inactiveContentButton"
-						 onclick="show_id('playlist');show_id('infoSorties');">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
+					<div class="inactiveContentButton" id="playlistButton">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
 					&nbsp; <div class="activeContentButton">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
 				</div>
 
@@ -115,20 +113,20 @@
 
 		<!-- Import/Export de playlists -->
 		<div id="contenu_import_export">
-			<div id="import_export" class="clickable" onclick="show_id('import_export_form'); $('zone_import_export').focus()">
+			<div id="import_export" class="clickable">
 				Importer/Exporter une playlist
 			</div>
 			<div id="import_export_form" style="display:none; padding:8px">
 				<textarea cols="44" rows="7" id="zone_import_export">
 				</textarea>
 				<div style="position:relative; height:18px; margin-top:8px;">
-					<div class="clickable" id="importButton" onclick="importer()">
+					<div class="clickable" id="importButton">
 						&nbsp;&nbsp;Importer&nbsp;
 					</div>
 					<span>
 						&nbsp;
 					</span>
-					<div class="clickable" id="exportButton" onclick="exporter()">
+					<div class="clickable" id="exportButton">
 						&nbsp;&nbsp;Exporter&nbsp;&nbsp;
 					</div>
 				</div>
@@ -137,13 +135,13 @@
 
 		<!-- Recherche de playlist -->
 		<div id="contenu_search">
-			<div id="search" class="clickable" onclick="show_id('search_form');">
+			<div id="search" class="clickable">
 				Rechercher une playlist
 			</div>
 			<div id="search_form" style="display:none; padding:8px;">
 				<input	name="search_area" id="search_area"/>
 				&nbsp;
-				<div class="clickable" id="searchButton" onclick="search_playlist('#PlaylistExt# ' + $('search_area').value)">
+				<div class="clickable" id="searchButton">
 					&nbsp;&nbsp;Chercher&nbsp;&nbsp;
 				</div>
 			</div>

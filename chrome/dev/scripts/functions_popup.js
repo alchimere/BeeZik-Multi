@@ -19,25 +19,25 @@
 
 // -- Audio -- //
 function changeZik(idBeeZik, idExt) {
-	var player = $("audioPlayer");
+	var player = jQuery("audioPlayer");
 	player.pause();
 	player.src = "http://www.beezik.com/anonymousMp3Path.htm?track=" + idBeeZik;
 
 	var song = JSON.parse(localStorage['BeeZikExt_cart_' + idExt]);
-	$("playingArtist").innerHTML = song.artist;
-	$("playingTitle").innerHTML = song.title;
+	jQuery("playingArtist").innerHTML = song.artist;
+	jQuery("playingTitle").innerHTML = song.title;
 	player.play();
-	$("divPlayer").style.display = 'block';
+	jQuery("divPlayer").style.display = 'block';
 }
 
 function stopZik() {
-	$("audioPlayer").pause();
-	$("divPlayer").style.display = 'none';
+	jQuery("audioPlayer").pause();
+	jQuery("divPlayer").style.display = 'none';
 }
 
 function updateProgress(audioObj) {
 	var pos = audioObj.currentTime * 100 / audioObj.duration;
-	$('progressPlayer').style.width = pos + '%';
+	jQuery('progressPlayer').style.width = pos + '%';
 }
 
 // -- Search -- //
@@ -52,7 +52,7 @@ function	search_playlist(keywords)
 
 function	show_id(id_to_show)
 {
-	var	el = $(id_to_show);
+	var	el = jQuery(id_to_show)[0];
 
 	if (el)
 	{
@@ -65,7 +65,7 @@ function	show_id(id_to_show)
 
 function	exporter()
 {
-	var	el = $('zone_import_export');
+	var	el = jQuery('#zone_import_export');
 
 	el.innerHTML = '';
 	for (var i = 1; i < parseInt(localStorage['BeeZikExt_cart_id']); i++)
@@ -93,7 +93,7 @@ function	importer()
 				'import_b3' => Demander
 	*/
 	var	remplacement = true;
-	var el = $('zone_import_export');
+	var el = jQuery('#zone_import_export');
 	if (el.value == '')
 		return ;
 
@@ -216,10 +216,10 @@ function	getSong(str, cur_i)
 
 function	delete_song(id, reload)
 {
-	if ($('tr_' + id))
-		$('tr_' + id).style.display = 'none';
-	if ($('tr2_' + id))
-		$('tr2_' + id).style.display = 'none';
+	if (jQuery('tr_' + id))
+		jQuery('tr_' + id).style.display = 'none';
+	if (jQuery('tr2_' + id))
+		jQuery('tr2_' + id).style.display = 'none';
 	localStorage.removeItem('BeeZikExt_cart_' + id);
 
 	localStorage['BeeZikExt_cart_delete'] = parseInt(localStorage['BeeZikExt_cart_delete']) + 1;
@@ -254,7 +254,7 @@ function	inhib_quotes(lnk)
 
 function	replace_image_to(id_span, new_image)
 {
-	var		span_img = $(id_span);
+	var		span_img = jQuery(id_span);
 
 	if (span_img)
 	{

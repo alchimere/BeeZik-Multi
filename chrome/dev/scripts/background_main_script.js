@@ -63,9 +63,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, infos, tab)
 											else if (is_valid_cmd(tab.url)) // Commande
 												do_cmd(tab.url, tabId);
 											updateTopBar(tabId);
-											setTimeout("localStorage['BeeZikExt_update'] = 0;", 200);
+											
+											setTimeout(function () { localStorage['BeeZikExt_update'] = 0; }, 200);
 										}
-										//alert("update");
+										//alert("update [" + tab.url + "]");
 									}
 								 );
 
