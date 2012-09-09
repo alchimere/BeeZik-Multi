@@ -12,20 +12,18 @@
 // @ID@			-> artist id
 // @ARTIST@		-> artist name
 // @PUCE@		-> maybe for new or not
-var follow_tab_line = '<tr class="@CLASS@" id="tr_@J@"\
-							onmouseover="replace_image_to(\'f_img_suppr_@ID@\', \'images/del.png\')"\
-							onmouseout= "replace_image_to(\'f_img_suppr_@ID@\', \'images/@PUCE@\')"/>\
+var follow_tab_line = '<tr class="@CLASS@" id="tr_@J@" data-id="@ID@" data-puce="images/@PUCE@">\
 							 	<td width="30" id="td_0_@J@">\
-							 		<div id="f_img_suppr_@ID@" style="height: 15px; background-image: url(\'images/@PUCE@\'); background-repeat: no-repeat;"\
-										onclick="do_unfollow_id(@ID@); fill_followed_section()">\
+							 		<div id="f_img_suppr_@ID@" class="icon_suppr" data-id="@ID@"\
+										 style="height: 15px; background-image: url(\'images/@PUCE@\'); background-repeat: no-repeat;">\
 									</div>\
 								</td>\
-								<td width="366" onclick="open_followedtab(@ID@); set_followed(@ID@);">\
+								<td width="366" class="click_event" data-id="@ID@">\
 									<div class="name" title="@ARTIST@">\
 										@ARTIST@\
 									</div>\
 								</td>\
-								<td width="16">\
+								<td width="16" class="click_event" data-id="@ID@">\
 								</td>\
 						</tr>';
 
@@ -58,6 +56,7 @@ function	fill_followed_section()
 			var lineClass;
 			if (j % 2)	lineClass = "ligne_blanc";
 			else		lineClass = "ligne_gris";
+			lineClass += " yellow_point";
 
 			if (followed_hashes[0] == followed_hashes[1])
 				contentOld += getFollowTabLine(lineClass, i, followed_ids[i],
@@ -70,12 +69,12 @@ function	fill_followed_section()
 			j++;
 		}
 	}
-	contenuInfo.innerHTML = '<table>'
+	contenuInfo.innerHTML = '<table id="follow_table_new">'
 		 + contentNew
 		 + '</table>'
 		 + '<div style="height:2px; background-color:#F7AE23">'
 		 + '</div>'
-		 + '<table>'
+		 + '<table id="follow_table">'
 		 + contentOld
 		 + '</table>';
 	if (contentNew.length > 0)

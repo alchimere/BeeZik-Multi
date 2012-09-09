@@ -1,12 +1,8 @@
 jQuery(function () {
 	// Player
 	var audioPlayer = jQuery('#audioPlayer');
-
-	//audioPlayer.ended(stopZik);
-	audioPlayer.bind('timeupdate', function () { updateProgress(audioPlayer); });
-	// TODO verifier
-	// TODO binder stop
-	audioPlayer.bind('ended', function () { stopZik() });
+	audioPlayer.on('timeupdate', 	function () { updateProgress(this); });
+	audioPlayer.on('ended', 		function () { stopZik() });
 	
 	
 	// Logo
@@ -43,6 +39,77 @@ jQuery(function () {
 	jQuery('#playlistButton').click(function () {
 			show_id('#playlist');
 			show_id('#infoSorties');
+		});
+		
+		
+	// Tables
+	jQuery('#contenuInfo').on('click', 'td.click_event', function () {
+			//open_followedtab(@ID@); set_followed(@ID@);
+			var id = jQuery(this).data('id');
+			open_followedtab(id);
+			set_followed(id);
+		});
+
+	jQuery('#contenuInfo').on('click', 'div.icon_suppr', function () {
+			//do_unfollow_id(@ID@); fill_followed_section()
+			console.log("delete " + jQuery(this).attr('id'));
+			do_unfollow_id(jQuery(this).data('id'));
+			fill_followed_section();
+		});
+	
+	jQuery('#contenuInfo').on('mouseenter', 'tr', function () {
+			var id = jQuery(this).data('id');
+			console.log('f_img_suppr_' + id);
+			replace_image_to('f_img_suppr_' + id, 'images/del.png');
+		});
+		
+	jQuery('#contenuInfo').on('mouseleave', 'tr', function () {
+			var id = jQuery(this).data('id');
+			var puce = jQuery(this).data('puce');
+			console.log('f_img_suppr_' + id);
+			replace_image_to('f_img_suppr_' + id, puce);
+		});
+		
+		
+		
+	jQuery('#contenuPlaylist').on('click', '.click_event', function () {
+			//open_songtab(\'http://www.beezik.com/telecharger/t/@ID@\', @I@)
+			var id = jQuery(this).data('id');
+			var i = jQuery(this).data('i');
+			
+			open_songtab('http://www.beezik.com/telecharger/t/' + id, i)
+		});
+
+	jQuery('#contenuPlaylist').on('click', '.icon_suppr', function () {
+			//do_unfollow_id(@ID@); fill_followed_section()
+			console.log("delete " + jQuery(this).attr('id'));
+			//do_unfollow_id(jQuery(this).data('id'));
+			//fill_followed_section();
+			var i = jQuery(this).data('i');
+			delete_song(i, 'notReload');
+			fill_list();
+		});
+		
+	jQuery('#contenuPlaylist').on('click', '.playbtn', function () {
+			//changeZik(@ID@, @I@);
+			var id = jQuery(this).data('id');
+			var i = jQuery(this).data('i');
+			changeZik(id, i);
+		});
+	
+	jQuery('#contenuPlaylist').on('mouseenter', 'tr', function () {
+			var id = jQuery(this).data('id');
+			console.log('img_suppr_' + id);
+			//replace_image_to('img_suppr_' + id, 'images/del.png');
+			
+			jQuery('#img_play_' + id).css('display', 'block');
+			jQuery('#img_suppr_' + id).css('visibility', 'visible');
+		});
+		
+	jQuery('#contenuPlaylist').on('mouseleave', 'tr', function () {
+			var id = jQuery(this).data('id');
+			jQuery('#img_play_' + id).css('display', 'none');
+			jQuery('#img_suppr_' + id).css('visibility', 'hidden');
 		});
 		
 		

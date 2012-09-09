@@ -5,39 +5,40 @@
  *
  */
 
- function	newSong(artist, title, id)
-		{
-			return {
-						artist		: artist,
-						title		: title,
-						downloaded	: 0,
-						id			: parseInt(id)
-					};
-		}
+function	newSong(artist, title, id)
+{
+	return {
+				artist		: artist,
+				title		: title,
+				downloaded	: 0,
+				id			: parseInt(id)
+			};
+}
 
 // Must include prototype.js before
 
 // -- Audio -- //
 function changeZik(idBeeZik, idExt) {
-	var player = jQuery("audioPlayer");
-	player.pause();
-	player.src = "http://www.beezik.com/anonymousMp3Path.htm?track=" + idBeeZik;
+	var player = jQuery("#audioPlayer");
+	player.trigger('pause');
+	player.attr('src', "http://www.beezik.com/anonymousMp3Path.htm?track=" + idBeeZik);
 
 	var song = JSON.parse(localStorage['BeeZikExt_cart_' + idExt]);
-	jQuery("playingArtist").innerHTML = song.artist;
-	jQuery("playingTitle").innerHTML = song.title;
-	player.play();
-	jQuery("divPlayer").style.display = 'block';
+	jQuery("#playingArtist").html(song.artist);
+	jQuery("#playingTitle").html(song.title);
+	player.trigger('play');
+	jQuery("#divPlayer").css('display', 'block');
 }
 
 function stopZik() {
-	jQuery("audioPlayer").pause();
-	jQuery("divPlayer").style.display = 'none';
+	jQuery("#audioPlayer").trigger('pause');
+	jQuery("#divPlayer").css('display', 'none');
 }
 
 function updateProgress(audioObj) {
+	console.log('' + audioObj + ' ' + audioObj.currentTime);
 	var pos = audioObj.currentTime * 100 / audioObj.duration;
-	jQuery('progressPlayer').style.width = pos + '%';
+	jQuery('#progressPlayer').css('width', pos + '%');
 }
 
 // -- Search -- //
@@ -65,9 +66,9 @@ function	show_id(id_to_show)
 
 function	exporter()
 {
+	var content = '';
 	var	el = jQuery('#zone_import_export');
 
-	el.innerHTML = '';
 	for (var i = 1; i < parseInt(localStorage['BeeZikExt_cart_id']); i++)
 	{
 		var strSong = localStorage['BeeZikExt_cart_' + i];
@@ -77,8 +78,9 @@ function	exporter()
 		var song = JSON.parse(strSong);
 
 		if (song && song != 'none')
-			el.innerHTML += 'http://www.beezik.com/telecharger/t/' + song.id + '#BeeZikExt:' + song.artist + ' - ' + song.title + '\n';
+			content += 'http://www.beezik.com/telecharger/t/' + song.id + '#BeeZikExt:' + song.artist + ' - ' + song.title + '\n';
 	}
+	el.html(content);
 	el.focus();
 	el.select();
 }
@@ -94,7 +96,7 @@ function	importer()
 	*/
 	var	remplacement = true;
 	var el = jQuery('#zone_import_export');
-	if (el.value == '')
+	if (el.html() == '')
 		return ;
 
 	switch (localStorage['BeeZikExt_option_import'])
@@ -107,10 +109,11 @@ function	importer()
 			break;
 		case 'import_b3' :
 		default :
-				if (localStorage['BeeZikExt_cart_id'] == 1)
+				/*if (localStorage['BeeZikExt_cart_id'] == 1)
 					remplacement = false;
 				else
-					remplacement = confirm("[OK] Pour remplacer l'ancienne liste\n[Annuler] Pour rajouter à la liste actuelle");
+					remplacement = confirm("[OK] Pour remplacer l'ancienne liste\n[Annuler] Pour rajouter à la liste actuelle");*/
+				remplacement = false; // TODO faire une fenetre de confirmation sans fonction 'confirm'
 			break;
 	}
 
@@ -118,12 +121,12 @@ function	importer()
 		chrome.extension.sendRequest(
 										{
 											func: "importer",
-											liste: el.value,
+											liste: el.html(),
 											erease: remplacement
 										},
 										function(response)
 										{
-											el.value = '';
+											el.html('');
 											location.reload();
 										}
 									);
@@ -216,10 +219,10 @@ function	getSong(str, cur_i)
 
 function	delete_song(id, reload)
 {
-	if (jQuery('tr_' + id))
-		jQuery('tr_' + id).style.display = 'none';
-	if (jQuery('tr2_' + id))
-		jQuery('tr2_' + id).style.display = 'none';
+	if (jQuery('#tr_' + id))
+		jQuery('#tr_' + id).style.display = 'none';
+	if (jQuery('#tr2_' + id))
+		jQuery('#tr2_' + id).style.display = 'none';
 	localStorage.removeItem('BeeZikExt_cart_' + id);
 
 	localStorage['BeeZikExt_cart_delete'] = parseInt(localStorage['BeeZikExt_cart_delete']) + 1;
@@ -254,13 +257,13 @@ function	inhib_quotes(lnk)
 
 function	replace_image_to(id_span, new_image)
 {
-	var		span_img = jQuery(id_span);
+	var		span_img = jQuery('#' + id_span);
 
 	if (span_img)
 	{
 		if (new_image == '' || new_image == null)
-			span_img.style.backgroundImage = "";
+			span_img.css('background-image', '');
 		else
-			span_img.style.backgroundImage = "url('" + new_image + "')";
+			span_img.css('background-image', "url('" + new_image + "')");
 	}
 }

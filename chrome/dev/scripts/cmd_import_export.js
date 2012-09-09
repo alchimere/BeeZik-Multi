@@ -40,6 +40,7 @@ function	importer(link_list, erease)
 	
 	if (erease)
 		erease_all();
+		
 	for (var i = 0; i < linkTab.length; i++)
 	{
 		if ( // TODO compare genre strncmp ?
