@@ -170,6 +170,10 @@
 			box-shadow: 0px 10px 10px #ccc;
 		}
 	</style>
+
+	<script type="text/javascript" src="scripts/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="scripts/prototype.js"></script>
+	<script type="text/javascript" src="scripts/options.js"></script>
 </head>
 <body id="body">
 	<div id="header">
@@ -200,46 +204,20 @@
 			<!-- Sauvegarde de l'état de la liste à la fermeture du navigateur -->
 			<tr>
 				<td width="100">
-					<span class="option_desactivee" id="bouton_option_savePlaylistOnClose" onclick="change_option_savePlaylistOnClose()">
+					<span class="option_desactivee" id="bouton_option_savePlaylistOnClose"> <!--</span> onclick="change_option_savePlaylistOnClose()">-->
 						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
 					</span>
 				</td>
 				<td>
 					Sauvegarde de l'état de la liste à la fermeture du navigateur
 				</td>
+<!--
 				<script type="text/javascript">
-					function	actualiser_option_savePlaylistOnClose()
-					{
-						var el = document.getElementById('bouton_option_savePlaylistOnClose');
-						
-						if (!el)
-							return ;
-						
-						if (localStorage['BeeZikExt_option_savePlaylistOnClose'] == 'yes')
-						{
-								el.className = 'option_activee';
-								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
-						}
-						else
-						{
-								el.className = 'option_desactivee';
-								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
-						}
-					}
 					
-					function	change_option_savePlaylistOnClose()
-					{
-						var		now = localStorage['BeeZikExt_option_savePlaylistOnClose'];
-						
-						if (now == 'yes')
-							localStorage['BeeZikExt_option_savePlaylistOnClose'] = 'no';
-						else
-							localStorage['BeeZikExt_option_savePlaylistOnClose'] = 'yes';
-						actualiser_option_savePlaylistOnClose();
-					}
 					
 					actualiser_option_savePlaylistOnClose();
 				</script>
+-->
 			</tr>
 			
 			<tr>
@@ -391,14 +369,16 @@
 				</td>
 			</tr>
 			-->
+<!--
 			<script type="text/javascript">
 				localStorage['BeeZikExt_option_plageNoDRM'] = 'no';
 			</script>
 			
+-->
 			<!-- Affichage du compteur FB -->
 			<tr>
 				<td width="100">
-					<span class="option_desactivee" id="bouton_option_hide_cpt_FB" onclick="change_option_hide_cpt_FB()">
+					<span class="option_desactivee" id="bouton_option_hide_cpt_FB"><!--</span> onclick="change_option_hide_cpt_FB()">-->
 						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
 					</span>
 				</td>
@@ -406,39 +386,12 @@
 					Masquer <!--le compteur "J'aime" FaceBook-->
 					<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FBeeZik-Multi-Extension-chrome-by-firetonton%2F172461369439346&amp;layout=button_count&amp;show_faces=false&amp;width=400&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
 				</td>
+<!--
 				<script type="text/javascript">
-					function	actualiser_option_hide_cpt_FB()
-					{
-						var el = document.getElementById('bouton_option_hide_cpt_FB');
-						
-						if (!el)
-							return ;
-						
-						if (localStorage['BeeZikExt_option_hide_cpt_FB'] == 'yes')
-						{
-								el.className = 'option_activee';
-								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
-						}
-						else
-						{
-								el.className = 'option_desactivee';
-								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
-						}
-					}
-					
-					function	change_option_hide_cpt_FB()
-					{
-						var		now = localStorage['BeeZikExt_option_hide_cpt_FB'];
-						
-						if (now == 'yes')
-							localStorage['BeeZikExt_option_hide_cpt_FB'] = 'no';
-						else
-							localStorage['BeeZikExt_option_hide_cpt_FB'] = 'yes';
-						actualiser_option_hide_cpt_FB();
-					}
 					
 					actualiser_option_hide_cpt_FB();
 				</script>
+-->
 			</tr>
 			
 			<tr>
@@ -452,64 +405,30 @@
 			<!-- Action après clic sur une musique -->
 			<tr>
 				<td width="100">
-					<span class="option_activee" id="bouton_option_import" onclick="">
+					<span class="option_activee" id="bouton_option_import">
 						&nbsp;&nbsp;Choisir&nbsp;&nbsp;
 					</span>
 				</td>
 				<td>
 					Action à l'import de playlist : 
 					
-					<span class="option_desactivee" id="import_b1" onclick="change_option_import(this.id)">
+					<span class="option_desactivee" id="import_b1"> <!-- onclick="change_option_import(this.id)">-->
 						&nbsp;&nbsp;Remplacer&nbsp;&nbsp;
 					</span>
 					&nbsp;
-					<span class="option_desactivee" id="import_b2" onclick="change_option_import(this.id)">
+					<span class="option_desactivee" id="import_b2"> <!--onclick="change_option_import(this.id)">-->
 						&nbsp;&nbsp;Mettre à la suite&nbsp;&nbsp;
 					</span>
 					&nbsp;
-					<span class="option_desactivee" id="import_b3" onclick="change_option_import(this.id)">
+					<span class="option_desactivee" id="import_b3"> <!--onclick="change_option_import(this.id)">-->
 						&nbsp;&nbsp;Demander&nbsp;&nbsp;
 					</span>
 				</td>
+<!--
 				<script type="text/javascript">
-					function	actualiser_option_import()
-					{
-						var		option_is_set = false;
-						
-						for (var i = 1; i <= 3; i++)
-						{
-							if (localStorage['BeeZikExt_option_import'] == ('import_b' + i))
-							{
-								document.getElementById('import_b' + i).className = 'option_activee';
-								option_is_set = true;
-							}
-							else
-								document.getElementById('import_b' + i).className = 'option_desactivee';
-						}
-						
-						if (!option_is_set)
-						{
-							document.getElementById('import_b3').className = 'option_activee';
-							localStorage['BeeZikExt_option_import'] = 'import_b3';
-						}
-					}
-					
-					function	change_option_import(id_bouton)
-					{
-						switch (id_bouton)
-						{
-							case 'import_b1' :
-							case 'import_b2' :
-							case 'import_b3' :
-									localStorage['BeeZikExt_option_import'] = id_bouton;
-								break;
-							default :
-						}
-						actualiser_option_import();
-					}
-					
 					actualiser_option_import();
 				</script>
+-->
 			</tr>
 			
 
@@ -525,46 +444,18 @@
 			<!-- Suppression de tout une fois la liste finie -->
 			<tr>
 				<td width="100">
-					<span class="option_desactivee" id="bouton_option_del_end" onclick="change_option_del_end()">
+					<span class="option_desactivee" id="bouton_option_del_end"><!--</span> onclick="change_option_del_end()">-->
 						&nbsp;&nbsp;Désactivé&nbsp;&nbsp;
 					</span>
 				</td>
 				<td>
 					Supprimer le contenu de la liste une fois celle-ci terminée
 				</td>
+<!--
 				<script type="text/javascript">
-					function	actualiser_option_del_end()
-					{
-						var el = document.getElementById('bouton_option_del_end');
-						
-						if (!el)
-							return ;
-						
-						if (localStorage['BeeZikExt_option_del_end'] == 'yes')
-						{
-								el.className = 'option_activee';
-								el.innerHTML = '&nbsp;&nbsp;Activé&nbsp;&nbsp;';
-						}
-						else
-						{
-								el.className = 'option_desactivee';
-								el.innerHTML = '&nbsp;&nbsp;Désactivé&nbsp;&nbsp;';
-						}
-					}
-					
-					function	change_option_del_end()
-					{
-						var		now = localStorage['BeeZikExt_option_del_end'];
-						
-						if (now == 'yes')
-							localStorage['BeeZikExt_option_del_end'] = 'no';
-						else
-							localStorage['BeeZikExt_option_del_end'] = 'yes';
-						actualiser_option_del_end();
-					}
-					
 					actualiser_option_del_end();
 				</script>
+-->
 			</tr>
 		</table>
 	</div>
