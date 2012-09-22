@@ -120,7 +120,8 @@ jQuery(function () {
 		});
 		
 		jQuery('#importButton').click(function () {
-				importer();
+				importer(null);
+				//show_id('#importAlertBox');
 			});
 		jQuery('#exportButton').click(function () {
 				exporter();
@@ -133,4 +134,19 @@ jQuery(function () {
 		jQuery('#searchButton').click(function () {
 				search_playlist('#PlaylistExt# ' + jQuery('#search_area').value)
 			});
+			
+	// Alerts
+	jQuery('#closeAlertImg').click(function () {
+			show_id('#importAlertBox');
+		});
+		
+	jQuery('#alertBoxImportReplace').click(function () {
+			importer(true);
+			show_id('#importAlertBox');
+		});
+		
+	jQuery('#alertBoxImportKeep').click(function () {
+			importer(false);
+			show_id('#importAlertBox');
+		});
 });

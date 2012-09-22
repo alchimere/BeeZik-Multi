@@ -85,7 +85,7 @@ function	exporter()
 	el.select();
 }
 
-function	importer()
+function	importer(replace)
 {
 	/*
 		localStorage['BeeZikExt_option_import']
@@ -113,8 +113,13 @@ function	importer()
 					remplacement = false;
 				else
 					remplacement = confirm("[OK] Pour remplacer l'ancienne liste\n[Annuler] Pour rajouter à la liste actuelle");*/
-				remplacement = false; // TODO faire une fenetre de confirmation sans fonction 'confirm'
+				remplacement = replace; // TODO faire une fenetre de confirmation sans fonction 'confirm'
 			break;
+	}
+	
+	if (remplacement == null) {
+		show_id('#importAlertBox');
+		return ;
 	}
 
 	if (el)
@@ -220,9 +225,9 @@ function	getSong(str, cur_i)
 function	delete_song(id, reload)
 {
 	if (jQuery('#tr_' + id))
-		jQuery('#tr_' + id).style.display = 'none';
+		jQuery('#tr_' + id).css('display', 'none');
 	if (jQuery('#tr2_' + id))
-		jQuery('#tr2_' + id).style.display = 'none';
+		jQuery('#tr2_' + id).css('display', 'none');
 	localStorage.removeItem('BeeZikExt_cart_' + id);
 
 	localStorage['BeeZikExt_cart_delete'] = parseInt(localStorage['BeeZikExt_cart_delete']) + 1;
