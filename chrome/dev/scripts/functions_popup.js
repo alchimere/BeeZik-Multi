@@ -27,12 +27,14 @@ function changeZik(idBeeZik, idExt) {
 	jQuery("#playingArtist").html(song.artist);
 	jQuery("#playingTitle").html(song.title);
 	player.trigger('play');
-	jQuery("#divPlayer").css('display', 'block');
+	//jQuery("#divPlayer").css('display', 'block');
+	jQuery("#divPlayer").css('top', '0');
 }
 
 function stopZik() {
 	jQuery("#audioPlayer").trigger('pause');
-	jQuery("#divPlayer").css('display', 'none');
+	//jQuery("#divPlayer").css('display', 'none');
+	jQuery("#divPlayer").css('top', '-30px');
 }
 
 function updateProgress(audioObj) {

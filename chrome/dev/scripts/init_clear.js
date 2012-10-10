@@ -8,17 +8,6 @@
 /* ---------- Initialisation ---------- */
 function	initializeExt()
 {
-	// Première initialisation des heures sans DRM
-	if (!localStorage['BeeZikExt_DRMfree_start_h'])
-	{
-		localStorage['BeeZikExt_DRMfree_start_h']	=	19;
-		localStorage['BeeZikExt_DRMfree_start_m']	=	00;
-		
-		localStorage['BeeZikExt_DRMfree_end_h']		=	01;
-		localStorage['BeeZikExt_DRMfree_end_m']		=	00;
-	}
-	
-	
 	if (!localStorage['BeeZikExt_followed_artists'])
 		localStorage['BeeZikExt_followed_artists'] = ';';
 	
@@ -43,12 +32,6 @@ function	erease_all()
 	Options :
 		BeeZikExt_option_savePlaylistOnClose	=> Sauvegarde de l'état de la liste à la fermeture du navigateur
 		
-		BeeZikExt_DRMfree_start_h 				=> Plage sans DRM
-		BeeZikExt_DRMfree_start_m
-		BeeZikExt_DRMfree_end_h
-		BeeZikExt_DRMfree_end_m
-		BeeZikExt_option_plageNoDRM
-		
 		BeeZikExt_option_hide_cpt_FB			=> Affichage du bouton j'aime facebook
 		
 		BeeZikExt_option_import					=> Action à l'appui sur le bouton d'import
@@ -57,10 +40,6 @@ function	erease_all()
 	*/
 	
 	var savePlaylistOnClose 	= localStorage['BeeZikExt_option_savePlaylistOnClose'];
-	var DRMfree_start_h 		= localStorage['BeeZikExt_DRMfree_start_h'];
-	var DRMfree_start_m 		= localStorage['BeeZikExt_DRMfree_start_m'];
-	var DRMfree_end_h 			= localStorage['BeeZikExt_DRMfree_end_h'];
-	var DRMfree_end_m 			= localStorage['BeeZikExt_DRMfree_end_m'];
 	var hide_cpt_FB				= localStorage['BeeZikExt_option_hide_cpt_FB'];
 	var opt_import				= localStorage['BeeZikExt_option_import'];
 	var del_end					= localStorage['BeeZikExt_option_del_end'];
@@ -80,10 +59,6 @@ function	erease_all()
 	
 	
 	localStorage['BeeZikExt_option_savePlaylistOnClose'] = savePlaylistOnClose;
-	localStorage['BeeZikExt_DRMfree_start_h'] = DRMfree_start_h;
-	localStorage['BeeZikExt_DRMfree_start_m'] = DRMfree_start_m;
-	localStorage['BeeZikExt_DRMfree_end_h'] = DRMfree_end_h;
-	localStorage['BeeZikExt_DRMfree_end_m'] = DRMfree_end_m;
 	localStorage['BeeZikExt_option_hide_cpt_FB'] = hide_cpt_FB;
 	localStorage['BeeZikExt_option_import'] = opt_import;
 	localStorage['BeeZikExt_option_del_end'] = del_end;

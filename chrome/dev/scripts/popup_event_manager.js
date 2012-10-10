@@ -4,6 +4,26 @@ jQuery(function () {
 	audioPlayer.on('timeupdate', 	function () { updateProgress(this); });
 	audioPlayer.on('ended', 		function () { stopZik() });
 	
+	var currentContent = null;
+	function changeContentTo(contentId) {
+		var newEl = jQuery('#' + contentId);
+		
+		if (currentContent != null) {
+			var curEl = jQuery('#' + currentContent)
+			curEl.css('height', '0px');
+			curEl.css('padding', '0px');
+		}
+		
+		newEl.css('display', 'block');
+		newEl.css('height',  '410px');
+		newEl.css('padding', '10px');
+		currentContent = contentId;
+	}
+	
+	setTimeout(function () {
+		changeContentTo('playlist');
+	}, 300);
+	
 	
 	// Logo
 	jQuery('#logo').click(function () {
@@ -114,8 +134,17 @@ jQuery(function () {
 		
 		
 	// Boxes
+	jQuery('#playlist_click').click(function () {
+			changeContentTo('playlist');
+		});
+		
+	jQuery('#info_sorties').click(function () {
+			changeContentTo('infoSorties');
+		});
+
 	jQuery('#import_export').click(function () {
-			show_id('#import_export_form');
+			//show_id('#import_export_form');
+			changeContentTo('import_export_form');
 			jQuery('#zone_import_export').focus();
 		});
 		
@@ -129,6 +158,7 @@ jQuery(function () {
 			
 	jQuery('#search').click(function () {
 			show_id('#search_form');
+			changeContentTo('search_form');
 		});
 		
 		jQuery('#searchButton').click(function () {

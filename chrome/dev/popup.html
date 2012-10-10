@@ -35,10 +35,10 @@
 				<div id="progressPlayer">
 				</div>
 				<div id="playerData">
-					<img src="images/stop.gif" style="margin-bottom: -2" onclick="stopZik()"/>
-					<div style="display:inline-block;">
-						<span class="name" id="playingArtist" style="font-size:15px;">Artist</span>
-						- <span class="title" id="playingTitle" style="font-size:15px;">title</span>
+					<!--<img src="images/stop.gif" style="float:right" onclick="stopZik()"/>-->
+					<div style="float:left; margin-left: 8px"><!--style="display:inline-block;">-->
+						<span class="name" id="playingArtist">Artist</span>
+						- <span class="title" id="playingTitle">title</span>
 					</div>
 				</div>
 			</div>
@@ -83,10 +83,12 @@
 		<br/>
 
 		<!-- Liste de musiques -->
-		<div id="contenu">
-
-			<div id="playlist">
-				<div style="text-align:center; margin-bottom:8px;">
+		<div id="contenu_playlist" class="expandable_content_container">
+			<div id="playlist_click" class="clickable content_slider">
+				Playlist
+			</div>
+			<div id="playlist" class="expandable_content">
+				<div style="text-align:center; margin-bottom:8px; display:none">
 					<div class="activeContentButton">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
 					&nbsp; <div class="inactiveContentButton" id="infoSortiesButton">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
 				</div>
@@ -96,9 +98,15 @@
 					Loading ...
 				</div>
 			</div>
+		</div>
 
-			<div id="infoSorties" style="display:none;">
-				<div style="text-align:center; margin-bottom:8px;">
+		<!-- Import/Export de playlists -->
+		<div id="contenu_info_sorties" class="expandable_content_container">
+			<div id="info_sorties" class="clickable content_slider">
+				Info sorties <span style="color: grey">(<span id="info_sorties_nb_new">0</span> / <span id="info_sorties_nb_total">0</span>)</span>
+			</div>
+			<div id="infoSorties" class="expandable_content">
+				<div style="text-align:center; margin-bottom:8px; display:none">
 					<div class="inactiveContentButton" id="playlistButton">&nbsp;&nbsp;Playlist&nbsp;&nbsp;</div>
 					&nbsp; <div class="activeContentButton">&nbsp;&nbsp;Infos sorties&nbsp;&nbsp;</div>
 				</div>
@@ -108,16 +116,15 @@
 					Error ...
 				</div>
 			</div>
-
 		</div>
-
+		
 		<!-- Import/Export de playlists -->
-		<div id="contenu_import_export">
-			<div id="import_export" class="clickable">
+		<div id="contenu_import_export" class="expandable_content_container">
+			<div id="import_export" class="clickable content_slider">
 				Importer/Exporter une playlist
 			</div>
-			<div id="import_export_form" style="display:none; padding:8px">
-				<textarea cols="44" rows="7" id="zone_import_export">
+			<div id="import_export_form" class="expandable_content">
+				<textarea cols="44" rows="20" id="zone_import_export">
 				</textarea>
 				<div style="position:relative; height:18px; margin-top:8px;">
 					<div class="clickable" id="importButton">
@@ -134,11 +141,11 @@
 		</div>
 
 		<!-- Recherche de playlist -->
-		<div id="contenu_search">
-			<div id="search" class="clickable">
+		<div id="contenu_search" class="expandable_content_container">
+			<div id="search" class="clickable content_slider">
 				Rechercher une playlist
 			</div>
-			<div id="search_form" style="display:none; padding:8px;">
+			<div id="search_form" class="expandable_content">
 				<input	name="search_area" id="search_area"/>
 				&nbsp;
 				<div class="clickable" id="searchButton">
@@ -148,7 +155,10 @@
 		</div>
 		
 		
-		<div class="alertBoxBackground" style="display:none" id="importAlertBox">
+		
+		
+		
+		<div class="alertBoxBackground" id="importAlertBox">
 			<div class="alertBox">
 				<img src="images/close.png" id="closeAlertImg"/>
 				<p>

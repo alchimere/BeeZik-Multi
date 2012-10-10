@@ -45,6 +45,8 @@ function	fill_followed_section()
 	var contentOld = '';
 	var j = 0;
 	var k = 0;
+	var nbNew = 0;
+	var nbTotal = 0;
 
 	for (var i = 0; i < followed_ids.length; i++)
 	{
@@ -62,10 +64,13 @@ function	fill_followed_section()
 				contentOld += getFollowTabLine(lineClass, i, followed_ids[i],
 												localStorage['BeeZikExt_followed_' + followed_ids[i]].substr(followed_hashes[0].length + followed_hashes[1].length + 2),
 												'puce.png');
-			else
+			else {
 				contentNew += getFollowTabLine(lineClass, i, followed_ids[i],
 												localStorage['BeeZikExt_followed_' + followed_ids[i]].substr(followed_hashes[0].length + followed_hashes[1].length + 2),
 												'new.gif');
+				nbNew;
+			}
+			nbTotal++;
 			j++;
 		}
 	}
@@ -77,6 +82,8 @@ function	fill_followed_section()
 		 + '<table id="follow_table">'
 		 + contentOld
 		 + '</table>';
+	info_sorties_nb_new.innerHTML = nbNew;
+	info_sorties_nb_total.innerHTML = nbTotal;
 	if (contentNew.length > 0)
 	{
 		localStorage['BeeZik_followed_new'] = "true";

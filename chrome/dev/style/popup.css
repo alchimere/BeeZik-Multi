@@ -42,6 +42,7 @@ body {
 	font-size : 4px;
 	font-family: Arial, Helvetica, sans-serif;
 	overflow-x : hidden;
+	/* 600 px de hauteur */
 }
 
 table {
@@ -78,6 +79,7 @@ td div {
 	overflow : hidden;
 	height : 15px;
 	word-wrap : break-word;
+	text-align: left;
 }
 
 .title {
@@ -88,6 +90,7 @@ td div {
 	font-weight : bold;
 	overflow : hidden;
 	height : 15px;
+	word-wrap : break-word;
 }
 
 .ligne_gris {
@@ -116,15 +119,16 @@ td div {
 }
 
 #divPlayer {
-	height : 25px;
-	font-size : 20px;
-	border-radius : 8px;
-	padding-left : 8px;
-	box-shadow : 0px 0px 5px #444 inset;
-	margin-bottom : 8px;
-	overflow : hidden;
-	display : none;
-	position : relative;
+	border-radius: 0 0 8px 8px;
+	position: absolute;
+	top: -30px;
+	left: 110px;
+	width: 200px;
+	max-height: 28px;
+	overflow: hidden;
+	
+	box-shadow : 0px 0px 5px #444;
+	-webkit-transition: top 0.5s linear;
 }
 
 #progressPlayer {
@@ -134,12 +138,13 @@ td div {
 	background-color : #F7AE23;
 	position: absolute;
 	left: 0;
-	border-radius: 8px;
-	opacity: 0.4;
+	border-radius: 0 0 8px 8px;
+	z-index: 42;
 }
 
 #playerData {
-	position: absolute;
+	position: relative;
+	z-index: 44;
 }
 
 #header {
@@ -181,6 +186,7 @@ td div {
 	margin-top : 5px;
 	color : #585858;
 	box-shadow: 0px 0px 3px #000;
+	margin-right: 2px;
 }
 
 #erase_all:hover {
@@ -202,6 +208,7 @@ td div {
 	margin-top : 5px;
 	color : #585858;
 	box-shadow: 0px 0px 3px #000;
+	margin-right: 2px;
 }
 
 #options:hover {
@@ -223,6 +230,7 @@ td div {
 	margin-top : 5px;
 	color : #585858;
 	box-shadow: 0px 0px 3px #000;
+	margin-right: 2px;
 }
 
 #apropos:hover {
@@ -354,7 +362,8 @@ td div {
 #contenu {
 	border-radius: 8px;
 	
-	max-height : 450px;
+	/*max-height : 450px;*/
+	height: 0;
 	
 	font-size: 2.5em;
 	font-family: Arial, Helvetica, sans-serif;
@@ -363,10 +372,24 @@ td div {
 	
 	box-shadow: 0px 0px 5px #444 inset;
 	padding : 1px 5px 5px 5px;
+	overflow : hidden;
+}
+
+#contenu_playlist {
+	margin-top : 6px;
+}
+
+#contenu_info_sorties {
+	margin-top : 10px;
+}
+
+#playlist_click:hover, #info_sorties:hover {
+	color: white;
 }
 
 #contenuPlaylist, #contenuInfo {
-	max-height : 420px;
+	max-height : 410px;
+	width: 390px;
 	
 	overflow-y : auto;
 	
@@ -424,4 +447,38 @@ td div {
 	position: absolute;
 	top: 3px;
 	right: 3px;
+}
+
+
+
+.expandable_content_container {
+	border-style : solid;
+	border-color : black;
+	border-width : 0px;
+	border-radius: 8px;
+	padding: 0px;
+	
+	text-align : center;
+	font-size : 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: normal;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px #444 inset;
+}
+
+.expandable_content {
+	height: 0px;
+	display: block;
+	overflow: hidden;
+	-webkit-transition: height 0.3s ease-in, padding 0.3s linear;
+}
+
+.content_slider {
+	font-weight : bold;
+	font-size : 12px;
+	border-radius: 8px;
+	width : 100%;
+	text-align : center;
+	background-color : #F7AE23;
+	box-shadow: 0px 0px 5px #444;
 }
