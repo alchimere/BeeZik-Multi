@@ -143,16 +143,20 @@ function	importer(replace)
 	chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});
 }
 
-function	open_songtab(str, i)
+function	open_songtab(str, songId)
 {
-	localStorage['BeeZikExt_cart_' + i] = localStorage['BeeZikExt_cart_' + i].replace(/"downloaded":0/, '"downloaded":1');
+	//localStorage['BeeZikExt_cart_' + i] = localStorage['BeeZikExt_cart_' + i].replace(/"downloaded":0/, '"downloaded":1');
 
-	var texte_badge = get_nb_song_to_dl().toString();
-	chrome.browserAction.setBadgeText({text : texte_badge});
+	//var texte_badge = '';
+	//chrome.browserAction.setBadgeText({text : texte_badge});
+	chrome.extension.sendRequest({func: "setDownloaded", id: songId},
+									function (response)
+									{
+										if (response.nbSong == 0 && localStorage['BeeZikExt_option_del_end'] == 'yes')
+											erease_all();
+									});
 	chrome.tabs.create({ url: str });
 
-	if (texte_badge == "0" && localStorage['BeeZikExt_option_del_end'] == 'yes')
-		erease_all();
 
 	chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});
 
@@ -224,18 +228,22 @@ function	getSong(str, cur_i)
 	return song.title;
 }
 
-function	delete_song(id, reload)
+function	delete_song(id, songId, reload)
 {
 	if (jQuery('#tr_' + id))
 		jQuery('#tr_' + id).css('display', 'none');
 	if (jQuery('#tr2_' + id))
 		jQuery('#tr2_' + id).css('display', 'none');
-	localStorage.removeItem('BeeZikExt_cart_' + id);
+		
+	
+	chrome.extension.sendRequest({func: "deleteMusic", id: songId});
+	
+	/*localStorage.removeItem('BeeZikExt_cart_' + id);
 
 	localStorage['BeeZikExt_cart_delete'] = parseInt(localStorage['BeeZikExt_cart_delete']) + 1;
 	var texte_badge = get_nb_song_to_dl();
 	chrome.browserAction.setBadgeText({text : texte_badge.toString()});
-	chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});
+	chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});*/
 
 	localStorage['BeeZikExt_playlist_state_modified'] = 1;
 	if (reload == "reload")

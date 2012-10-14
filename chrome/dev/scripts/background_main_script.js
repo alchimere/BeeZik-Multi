@@ -21,6 +21,13 @@
 		myobj = JSON.parse(localStorage['test']);
 */
 
+function	update_badge()
+{
+	var count = panierCount();
+	set_badge_text('' + count);
+	return count;
+}
+
 function	get_nb_song_to_dl()
 {
 	var		nb = 0;
@@ -110,6 +117,11 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 														setBadgeColor();
 														sendResponse({});
 													break;
+													
+												case 'setDownloaded' :
+													setDownloaded(request.id, request.artist);
+													sendRespone({nbSong:update_badge()});
+													break;
 
 												case 'importer' :
 														importer(request.liste, request.erease);
@@ -127,15 +139,34 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 														sendResponse({ str : localStorage['BeeZikExt_followed_artists'] });
 													break;
 													
+												case 'getDatas' :
+													trierPanier();
+													sendResponse(BeeZikExtData);
+													break;
+													
 
 													
 												case 'addMusic' : // TODO      	#777777 où 777777 id du morceau
 													console.log('#[');
-													addSongToCart(request.song.artist, request.song.title, request.song.idSong);
+													ajouter(request.song.artist, request.song.title, request.song.idSong);
+													update_badge();
 													console.log(']');
 													break;
 													
+												case 'deleteMusic' :
+													retirer(request.id, request.artist);
+													break;
+													
 												case 'addAlbum' : // TODO		http://beezik.com/x-p777777 où 777777 id de l'album
+													break;
+													
+												case 'eraseDownloaded' :
+													break; // TODO
+													
+												case 'eraseAll' :
+													BeeZikExtData = {};
+													update_badge();
+													sendResponse({});
 													break;
 													
 												case 'changeFollowedStatus' : // TODO

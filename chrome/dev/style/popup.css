@@ -93,6 +93,10 @@ td div {
 	word-wrap : break-word;
 }
 
+td {
+	-webkit-transition: background-color 0.3s ease-in;
+}
+
 .ligne_gris {
 	background-color : #EEEEEE;
 	cursor : pointer;
@@ -104,11 +108,7 @@ td div {
 	overflow : hidden;
 }
 
-.ligne_blanc:hover {
-	background-color : #F7AE23;
-}
-
-.ligne_gris:hover {
+.ligne_blanc:hover, .ligne_gris:hover {
 	background-color : #F7AE23;
 }
 

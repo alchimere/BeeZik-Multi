@@ -40,13 +40,22 @@ jQuery(function () {
 		});
 		
 	jQuery('#boutons #erase_downloaded').click(function () {
-			erease_downloaded();
-			fill_list();
+			//erease_downloaded();
+			//fill_list();
+			
+			
+			chrome.extension.sendRequest({func: "eraseDownloaded"},
+				function(response)
+				{ fill_list(); });
 		});
 		
 	jQuery('#boutons #erase_all').click(function () {
-			erease_all(); // TODO correct ortho
-			fill_list();
+			//erease_all(); // TODO correct ortho
+			//fill_list();
+			
+			chrome.extension.sendRequest({func: "eraseAll"},
+				function(response)
+				{ fill_list(); });
 			updateTopBar();
 		});
 		
@@ -97,7 +106,8 @@ jQuery(function () {
 			var id = jQuery(this).data('id');
 			var i = jQuery(this).data('i');
 			
-			open_songtab('http://www.beezik.com/telecharger/t/' + id, i)
+			//open_songtab('http://www.beezik.com/telecharger/t/' + id, i)
+			open_songtab('http://www.beezik.com/#' + id, id);
 		});
 
 	jQuery('#contenuPlaylist').on('click', '.icon_suppr', function () {
@@ -105,8 +115,10 @@ jQuery(function () {
 			console.log("delete " + jQuery(this).attr('id'));
 			//do_unfollow_id(jQuery(this).data('id'));
 			//fill_followed_section();
+			var id = jQuery(this).data('id');
 			var i = jQuery(this).data('i');
-			delete_song(i, 'notReload');
+			//delete_song(i, 'notReload');
+			delete_song(i, id, 'notReload');
 			fill_list();
 		});
 		

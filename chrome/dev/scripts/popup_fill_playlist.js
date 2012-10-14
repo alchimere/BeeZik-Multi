@@ -60,87 +60,74 @@ function	getTabLine(cellClass, index, j, id, artist1, artist2, title, puce)
 
 function	fill_list()
 {
-	if (!sort_list())
-		return ;
-
-	if (localStorage['BeeZikExt_playlist_state_modified'] == 0
+	/*if (localStorage['BeeZikExt_playlist_state_modified'] == 0
 		&& localStorage['BeeZikExt_playlist_size_modified'] == 0)
 	{
 		contenuPlaylist.innerHTML = localStorage['BeeZikExt_popup_content'];
 		return ;
-	}
-
-	var	liste = '<table>'
-	var	j = 0;
-	var prev_artist = null;
-
-	for (var i = 1; i < parseInt(localStorage['BeeZikExt_cart_id']); i++)
-	{
-		var strSong = localStorage['BeeZikExt_cart_' + i];
-
-		if (!strSong || strSong == undefined)
-			continue;
-		var song = JSON.parse(strSong);
-
-		if (song != undefined && song.downloaded == 0)
+	}*/
+console.log('sendRequest getDatas');
+chrome.extension.sendRequest({func: "getDatas"},
+	function (data) {
+		var	j = 0, nbReady = 0, nbDl = 0;
+		var prev_artist = null;
+		var readyList = '';
+		var downloadedList = '';
+		var sortedArtists = [];
+		
+		for (artist in data)
+			sortedArtists.push(artist);
+		sortedArtists.sort(function (a, b) 
+							{
+							   a = a.toUpperCase();
+							   b = b.toUpperCase();
+							   if(a > b) 
+								  return 1;
+							   if(a < b) 
+								  return -1; 
+							   return 0
+							});
+		
+		for (var index = 0; index < sortedArtists.length; index++)
 		{
-			var lineClass;
-			if (j % 2)	lineClass = "ligne_blanc";
-			else		lineClass = "ligne_gris";
-
-			var artist2 = song.artist;
-			var artist1 = '';
-
-			if (artist2 != prev_artist)
-				artist1 = artist2;
-
-			var title = song.title;
-			var puce = '';
-			if (artist1 == artist2)
-				puce = 'puce.png';
-
-			liste += getTabLine(lineClass, i, j, song.id, artist1, artist2, title, puce);
-			prev_artist = song.artist;
-			j++;
+			artist = sortedArtists[index];
+			for (var i = 0; i < data[artist].length; i++)
+			{
+				var song = data[artist][i];
+				
+				if (song.dl == 0) {
+					if (i == 0)
+						readyList += getTabLine(nbReady % 2 ? 'ligne_blanc' : 'ligne_gris',
+											i, j, song.id, artist, artist, song.t, 'puce.png');
+					else
+						readyList += getTabLine(nbReady % 2 ? 'ligne_blanc' : 'ligne_gris',
+											i, j, song.id, '', artist, song.t, '');
+					nbReady++;
+				}
+				else {
+					if (i == 0)
+						downloadedList += getTabLine(nbDl % 2 ? 'ligne_blanc' : 'ligne_gris',
+											i, j, song.id, artist, artist, song.t, 'puce.png');
+					else
+						downloadedList += getTabLine(nbDl % 2 ? 'ligne_blanc' : 'ligne_gris',
+											i, j, song.id, '', artist, song.t, '');
+					nbDl++;
+				}
+				j++;
+			}
 		}
-	}
-	liste += '</table>';
-	liste += '<div style="height:2px; background-color:#F7AE23"></div>';
-
-	liste += '<table>'
-	prev_artist = null;
-	for (var i = 1; i < parseInt(localStorage['BeeZikExt_cart_id']); i++)
-	{
-		var strSong = localStorage['BeeZikExt_cart_' + i];
-
-		if (!strSong || strSong == undefined)
-			continue;
-		var song = JSON.parse(strSong);
-
-		if (song != undefined && song.downloaded == 1)
-		{
-			var lineClass;
-			if (j % 2)	lineClass = "ligne_blanc";
-			else		lineClass = "ligne_gris";
-
-			var artist2 = song.artist;
-			var artist1 = '';
-
-			if (artist2 != prev_artist)
-				artist1 = artist2;
-
-			var title = song.title;
-			var puce = '';
-			if (artist1 == artist2)
-				puce = 'puce.png';
-
-			liste += getTabLine(lineClass, i, j, song.id, artist1, artist2, title, puce);
-			prev_artist = song.artist;
-			j++;
-		}
-	}
-	liste += '</table>';
-	localStorage['BeeZikExt_popup_content'] = liste;
-	localStorage['BeeZikExt_state_modified'] = 0;
-	contenuPlaylist.innerHTML = liste;
+		
+		var	liste = '<table>';
+		liste += readyList;
+		liste += '</table>';
+		liste += '<div style="height:2px; background-color:#F7AE23"></div>';
+		liste += '<table>'
+		liste += downloadedList;
+		liste += '</table>';
+		localStorage['BeeZikExt_popup_content'] = liste;
+		localStorage['BeeZikExt_state_modified'] = 0;
+		console.log(liste);
+		contenuPlaylist.innerHTML = liste;
+		console.log('Fin fill_playlist');
+	});
 }
