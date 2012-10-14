@@ -7,6 +7,33 @@
 /*$('.infosOff').click(function () {
 	alert('YES !!!');
 });*/
+	
+function addMusicToCart(p_artist, p_title, p_songId) {
+	// request.song.artist, request.song.title, request.song.idSong
+	chrome.extension.sendRequest(
+										{
+											func: "addMusic",
+											song: 	{
+														artist: p_artist,
+														title: 	p_title,
+														idSong: p_songId
+													}
+										}
+									);
+}
+	
+jQuery('#top-20 .item .download').on('click', function () {
+		var song = jQuery(this).parent().children('.play').data('player');
+		addMusicToCart(song.artist, song.title, song.id);
+		return false;
+	});
+	
+jQuery('ul.songs-list p.actions a.download').on('click', function () {
+		// http://www.beezik.com/kiss-a26496#6914816
+		var song = jQuery(this).parent().children('.play').data('player');
+		addMusicToCart(song.artist, song.title, song.id);
+		return false;
+	});
 
 // TODO enlever ća ...
 var callTopBarUpdate = 'javascript:eval(document.getElementById(&quot;refreshTopBar&quot;).innerHTML)';
@@ -26,7 +53,7 @@ function	nextSongBar()
     top_bar += '</div>';
 
     if (footer)
-	footer.innerHTML = top_bar + footer.innerHTML;
+		footer.innerHTML = top_bar + footer.innerHTML;
 }
 
 // TODO remplacer par un seul String.replace avec regexp
@@ -208,10 +235,10 @@ function	myalert(str)
 	}
 }
 
-replaceThemes();
-downloadToAdd();
-nextSongBar();
-chrome.extension.sendRequest({func: "getFollowedArtists"}, followArtistButton);
+//replaceThemes();
+//downloadToAdd();
+//nextSongBar();
+//chrome.extension.sendRequest({func: "getFollowedArtists"}, followArtistButton);
 
 /*document.body.innerHTML += '<div style="height:300px;background-color:red;">' + document.location + '</div>';
 document.body.onchange = function() {alert("Change !!!");}*/

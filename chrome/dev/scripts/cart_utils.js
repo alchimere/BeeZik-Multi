@@ -23,7 +23,7 @@ function	get_nb_song_to_dl()
 	for (var i = 1; i < parseInt(localStorage['BeeZikExt_cart_id']); i++)
 	{
 		var song = localStorage['BeeZikExt_cart_' + i];
-		if (song && song.indexOf('"downloaded":0,') != -1)
+		if (song && song.indexOf('"downloaded":0') != -1)
 			nb++;
 	}
 	return (nb);

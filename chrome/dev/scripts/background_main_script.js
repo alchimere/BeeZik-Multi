@@ -21,35 +21,64 @@
 		myobj = JSON.parse(localStorage['test']);
 */
 
-function	is_valid_cmd(url)
+function	get_nb_song_to_dl()
 {
-	var		i = url.lastIndexOf("#");
-
-	if (i < 0)
-		return (false);
-	if (url.substr(i, 14) == "#BeeZikExtCmd:")
-		return (true);
-	return (false);
+	var		nb = 0;
+	
+	for (var i = 1; i < parseInt(localStorage['BeeZikExt_cart_id']); i++)
+	{
+		var song = localStorage['BeeZikExt_cart_' + i];
+		if (song && song.indexOf('"downloaded":0') != -1)
+			nb++;
+	}
+	return (nb);
 }
 
-function	do_cmd(url, tabId)
-{
-	var		i = url.lastIndexOf("#");
+function inspectCartFor(idSong) {
+	var		cart_id = localStorage['BeeZikExt_cart_id'];
+	var		free_id = -1; // /!\ TODO /!\ pas encore testé
+	var		nb_songs = 0;
 
-	if (i < 0)
-		return ;
-	if (url.substr(i + 14, 4) == "Next")
-		do_cmd_next(url);
-	else if (url.substr(i + 14, 10) == "AddAlbum->")
-		do_cmd_add_album(url.substr(i + 24));
-	//else if (url.substr(i + 14, 7) == "follow-") // TODO : remplacer par une regexp
-	else if (url.match(/.+#BeeZikExtCmd:follow-[0-9]+-.+/))
-		do_follow(url.substr(i + 14 + 7), tabId);
-	//else if (url.substr(i + 14, 9) == "unfollow-") // TODO : remplacer par une regexp
-	else if (url.match(/.+#BeeZikExtCmd:unfollow-[0-9]+-.+/))
-		do_unfollow(url.substr(i + 14 + 9), tabId);
-	/*else
-		alert("Bad CMD...");*/
+	for (var i = 1; i <= cart_id; i++)
+	{
+		var song = localStorage['BeeZikExt_cart_' + i];
+		if (song)
+		{
+			if (song[song.length - 2] == '0')
+				nb_songs++;
+			if (song.indexOf('"id":' + idSong + ',') != -1)
+				return { alreadyIn:true, id:i };
+		}
+		else if (free_id == -1)
+			free_id = i;
+	}
+	if (free_id == -1)
+		free_id = cart_id;
+	nb_songs++;
+	return { alreadyIn:false, id:free_id, nb_dl:nb_songs };
+}
+
+function addSongToCart(artist, title, idSong) {
+	console.log('A');
+	var state = inspectCartFor(idSong);
+	console.log('B');
+	if  (state.alreadyIn == false) {
+		console.log('C');
+		localStorage['BeeZikExt_cart_' + state.id] = JSON.stringify({
+																		"id" 			: idSong,
+																		"artist" 		: artist,
+																		"title" 		: title,
+																		"downloaded" 	: 0
+																	});
+		console.log('D');
+		localStorage['BeeZikExt_cart_id'] = localStorage['BeeZikExt_cart_id'] + 1;
+		localStorage['BeeZikExt_playlist_size_modified'] = 1;
+		console.log('E');
+		//set_badge_text(get_nb_song_to_dl().toString());
+		set_badge_text(state.nb_dl.toString());
+		console.log('F');
+	}
+	console.log('G');
 }
 
 /* ---------- Gestion des ajouts ---------- */
@@ -57,16 +86,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, infos, tab)
 									{
 										if (localStorage['BeeZikExt_update'] == 0)
 										{
-											localStorage['BeeZikExt_update'] = 1;
-											if (!test_url_to_update(tab.url)) // Test Ajout de musique
-												add_to_cart(tab);
-											else if (is_valid_cmd(tab.url)) // Commande
-												do_cmd(tab.url, tabId);
 											updateTopBar(tabId);
-											
 											setTimeout(function () { localStorage['BeeZikExt_update'] = 0; }, 200);
 										}
-										//alert("update [" + tab.url + "]");
 									}
 								 );
 
@@ -74,6 +96,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, infos, tab)
 chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo)
 											{
 												updateTopBar(tabId);
+												// TODO update aussi follow
 											}
 										  );
 
@@ -97,10 +120,26 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 														updateTopBar();
 														sendResponse({});
 													break;
+													
 												case 'getFollowedArtists' :
 														if (localStorage['BeeZikExt_followed_artists'].length == 0)
 															localStorage['BeeZikExt_followed_artists'] = ';';
 														sendResponse({ str : localStorage['BeeZikExt_followed_artists'] });
+													break;
+													
+
+													
+												case 'addMusic' : // TODO      	#777777 où 777777 id du morceau
+													console.log('#[');
+													addSongToCart(request.song.artist, request.song.title, request.song.idSong);
+													console.log(']');
+													break;
+													
+												case 'addAlbum' : // TODO		http://beezik.com/x-p777777 où 777777 id de l'album
+													break;
+													
+												case 'changeFollowedStatus' : // TODO
+													// Retourne le statut courant
 													break;
 											}
 										}

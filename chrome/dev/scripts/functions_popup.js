@@ -145,7 +145,7 @@ function	importer(replace)
 
 function	open_songtab(str, i)
 {
-	localStorage['BeeZikExt_cart_' + i] = localStorage['BeeZikExt_cart_' + i].replace(/"downloaded":0,/, '"downloaded":1,');
+	localStorage['BeeZikExt_cart_' + i] = localStorage['BeeZikExt_cart_' + i].replace(/"downloaded":0/, '"downloaded":1');
 
 	var texte_badge = get_nb_song_to_dl().toString();
 	chrome.browserAction.setBadgeText({text : texte_badge});
