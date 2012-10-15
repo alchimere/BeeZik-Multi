@@ -5,6 +5,8 @@
  * Updated by Greg Holt 2000 - 2001.
  * See http://pajhome.org.uk/site/legal.html for details.
  */
+ 
+ localStorage['version'] = "2"; // DEBUG
 
 /*
  * Convert a 32-bit number to a hex string with ls-byte first
