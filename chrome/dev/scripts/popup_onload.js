@@ -1,3 +1,8 @@
+/*
+*	Made by firetonton
+*	firetonton@gmail.com
+*/
+
 jQuery(function () {
 	//alert('plop');
 	setTimeout(function () {fill_list(); fill_followed_section();}, 42);

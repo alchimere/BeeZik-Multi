@@ -1,3 +1,8 @@
+/*
+*	Made by firetonton
+*	firetonton@gmail.com
+*/
+
 jQuery(function () {
 	// Player
 	var audioPlayer = jQuery('#audioPlayer');
