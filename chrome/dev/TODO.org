@@ -8,3 +8,16 @@
 * TODO Nouveau fonctionnement
  Tout stocker dans un tableau : 
  var datas = [{"Art":"Le groupe qui fait la musique ...", [{"titre":"ouiouio"}, {}]}, {}]
+
+
+* TODO Rétablir barre télécharger morceau suivant
+{
+background-color: #F7AE23 !important;
+height: 25px;
+padding: 5px;
+text-align: center;
+font-weight: bold;
+color: #444;
+font-size: 14px;
+cursor: pointer;
+} => div à placer après le player

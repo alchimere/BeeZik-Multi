@@ -3,10 +3,8 @@
 *	firetonton@gmail.com
 */
 
-/*$('.infosOff').click(function () {
-	alert('YES !!!');
-});*/
-	
+// TODO suivi des artistes
+
 function addMusicToCart(p_artist, p_title, p_songId) {
 	// request.song.artist, request.song.title, request.song.idSong
 	chrome.extension.sendRequest(
@@ -21,50 +19,34 @@ function addMusicToCart(p_artist, p_title, p_songId) {
 									);
 }
 
-// Top 20 page accueil
-jQuery('#top-20 .item .download').on('click', function () {
-		var song = jQuery(this).parent().children('.play').data('player');
-		addMusicToCart(song.artist, song.title, song.id);
-		return false;
-	});
-	
-// Top 300
-jQuery('.tops .download').on('click', function () {
-		var song = jQuery(this).parent().children('.play').data('player');
-		addMusicToCart(song.artist, song.title, song.id);
-		return false;
-	});
+// -- Ajout des boutons
+function addCaddies() {	
+	var htmlCaddie 		= '<span title="Ajouter à BeeZik Multi" class="caddie"><img src="'+chrome.extension.getURL('images/caddy.gif')+'"/></span><span class="sep caddie_sep">';
+	var htmlCaddieTop 	= htmlCaddie.replace('caddie', 'caddie caddie_top_20');
 
-// Artiste // Album
-jQuery('ul.songs-list p.actions a.download').on('click', function () {
-		// http://www.beezik.com/kiss-a26496#6914816
-		var song = jQuery(this).parent().children('.play').data('player');
-		addMusicToCart(song.artist, song.title, song.id);
-		return false;
-	});
+	jQuery(htmlCaddie)		.insertBefore(jQuery('ul.songs-list p.actions span.play'));	// Artiste // Album
+	jQuery(htmlCaddieTop)	.insertBefore(jQuery('#top-20 .item .play'));				// Top 20 page accueil
+	jQuery(htmlCaddieTop)	.insertBefore(jQuery('.tops .play'));						// Top 300
 
-/*
-// TODO enlever ća ...
-var callTopBarUpdate = 'javascript:eval(document.getElementById(&quot;refreshTopBar&quot;).innerHTML)';
-
-// Ajout de la barre supérieure
-function	nextSongBar()
-{
-    var footer = document.getElementById('Header');
-    var jsnexttimeout = 'javascript:document.location = \'#BeeZikExtCmd:Next\'; setTimeout(\'document.location = \\\'#BeeZikMulti\\\'\', 100);';
-
-    backgroundURL = chrome.extension.getURL('bar_background.jpg');
-
-	// TODO mieux setter le zindex
-    top_bar = '<div id="BeeZikExtNext" style=	"margin-left:auto; padding-right:20px; padding-left:20px; color:black; font-weight:bold; font-size:20px;\
-    											 font-family:Arial,Helvetica,sans-serif; z-index:42000; width:100%; height:45px; position:absolute; text-align:center;">';
-    top_bar += '<a style="text-decoration:none;" href="' + jsnexttimeout + '"> <img src="' + chrome.extension.getURL('images/bouton_haut_page.png') + '"/> </a>';
-    top_bar += '</div>';
-
-    if (footer)
-		footer.innerHTML = top_bar + footer.innerHTML;
+	jQuery('.caddie').on('click', function () {
+			var song = jQuery(this).next().next().data('player');
+			addMusicToCart(song.artist, song.title, song.id);
+		});
 }
 
+// -- Ajout de la barre supérieure
+function	nextSongBar()
+{
+	var bar = $('<div id="next_download_bar">Panier vide</div>').insertBefore('#categories');
+	bar.on('click', function () {
+			chrome.extension.sendRequest({ func: "nextSong" },
+											function (id) // TODO essayer de retirer le location.reload()
+											{ document.location = 'http://www.beezik.com/#' + id.id; location.reload();	}
+										);
+		});
+}
+
+/*
 // TODO remplacer par un seul String.replace avec regexp
 // Remplacement des double quotes pour éviter quelques soucis
 function	inhib(str)
@@ -148,11 +130,9 @@ function	followArtistButton(artists)
 	}
 }*/
 
-//nextSongBar();
+nextSongBar();
+addCaddies();
 //chrome.extension.sendRequest({func: "getFollowedArtists"}, followArtistButton);
-
-/*document.body.innerHTML += '<div style="height:300px;background-color:red;">' + document.location + '</div>';
-document.body.onchange = function() {alert("Change !!!");}*/
 
 chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});
 

@@ -1,0 +1,47 @@
+#fixed-ctx {
+	height: 100px !important;
+}
+
+#next_download_bar {
+	background-color: #F7AE23 !important;
+	height: 25px;
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+	color: #444;
+	font-size: 14px;
+	cursor: pointer;
+	-webkit-transition: color 0.1s linear;
+}
+
+#next_download_bar:hover {
+	color: white;
+	text-shadow: 0 0 2px black;
+}
+
+#top-20 span.infos, .tops span.infos {
+	width: 125px !important;
+	max-width: 125px !important;
+	overflow: hidden;
+}
+
+
+
+.caddie {
+	cursor: pointer;
+	position: absolute;
+	right: 58px;
+}
+
+.caddie img {
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.caddie_top_20 {
+	top: 15px;
+}
+
+.caddie_sep {
+	right: 52px !important;
+}

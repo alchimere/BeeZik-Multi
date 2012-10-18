@@ -88,30 +88,51 @@ function addSongToCart(artist, title, idSong) {
 	console.log('G');
 }
 
-/* ---------- Gestion des ajouts ---------- */
-chrome.tabs.onUpdated.addListener(function(tabId, infos, tab)
-									{
-										if (localStorage['BeeZikExt_update'] == 0)
-										{
-											updateTopBar(tabId);
-											setTimeout(function () { localStorage['BeeZikExt_update'] = 0; }, 200);
-										}
-									}
-								 );
 
+var tabsTab = [];
+
+
+function addTab(id) {
+	for (var i = 0; i < tabsTab.length; i++)
+		if (tabsTab[i] == id)
+			return;
+	tabsTab.push(id);
+}
+
+function removeTab(id) {
+	for (var i = 0; i < tabsTab.length; i++)
+		if (tabsTab[i] == id) {
+			tabsTab.splice(i, 1);
+			return;
+		}
+}
+
+var gl_curTab = null;
 /* ---------- Gestion des updates du bouton next ---------- */
 chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo)
 											{
+												gl_curTab = tabId;
 												updateTopBar(tabId);
 												// TODO update aussi follow
 											}
 										  );
+
+chrome.tabs.onRemoved.addListener(function(tabId, removeInfo)
+									{
+										// TODO checker si il est ouvert et si oui le virer
+										//removeTab(tabId);
+									});
 
 /* ---------- Gestion des requêtes ---------- */
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 										{
 											switch (request.func)
 											{
+												/*case 'tabId' :
+													addTab(request.id);
+													break;*/
+													
+													
 												case 'setBadgeColor' :
 														clearTimeout(cur_no_drm_timer);
 														setBadgeColor();
@@ -145,6 +166,15 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 													break;
 													
 
+												case 'nextSong' :
+													var next = getNextSongInCart();
+													
+													if (next) {
+														sendResponse({id:next.id});
+														setDownloaded(next.id, next.artist);
+														update_badge();
+													}
+													break;
 													
 												case 'addMusic' : // TODO      	#777777 où 777777 id du morceau
 													console.log('#[');
@@ -173,6 +203,8 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 													// Retourne le statut courant
 													break;
 											}
+											if (request.func)
+												updateTopBar(gl_curTab);
 										}
 									  );
 

@@ -7,10 +7,11 @@
 
 function	updateTopBar(tabId)
 {
-	if (get_nb_song_to_dl() == 0)
-		chrome.tabs.executeScript(tabId,
-								  {code:"document.getElementById('BeeZikExtNext').style.visibility='hidden'"});
-	else
-		chrome.tabs.executeScript(tabId,
-								  {code:"document.getElementById('BeeZikExtNext').style.visibility='visible'"});
+	var next = getNextSongInCart();
+	var text = "Panier vide";
+													
+	if (next)
+		text = "T&eacute;l&eacute;charger le titre suivant : "+ next.title +" de "+ next.artist;
+	chrome.tabs.executeScript(tabId,
+							  {code:"document.getElementById('next_download_bar').innerHTML = \""+text+"\""});
 }

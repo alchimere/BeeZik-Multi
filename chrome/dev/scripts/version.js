@@ -3,7 +3,7 @@
  * firetonton@gmail.com
  */
  
- var CURRENT_VERSION = "3.99 (4 bêta)";
+ var CURRENT_VERSION = "3.99.1 (4 bêta 2)";
  
  // TODO compléter après 2.1
  
@@ -223,6 +223,15 @@
 								"Remaniement total du stockage et du tri des données",
 								"Modification de tout le code pour convenir aux nouvelles exigences de Google Chrome"
 							]
+				},
+				{
+					v:"3.99.1 (4 bêta 2)",
+					changes:[
+								"Bug : cette page ne s'affichait pas => fixé",
+								"Retour de la barre téléchargement suivant avec en plus l'artiste et le titre le la prochaine musique",
+								"Ajout d'une icône de caddie pour l'ajout au panier <img src=\""+chrome.extension.getURL('images/caddy.gif')+"\"/></span>",
+								"Retrait temporaire du bouton 'play' dans la popup"
+							]
 				}
 			]
 	};
@@ -238,7 +247,10 @@
 	}
 }
 else
+{
 	localStorage['version'] = CURRENT_VERSION;
+	chrome.tabs.create({ url: chrome.extension.getURL('changelog.html') });
+}
 	
 if (!localStorage['version_old'])
 	localStorage['version_old'] = CURRENT_VERSION;

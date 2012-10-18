@@ -38,8 +38,10 @@ function ajouter(artist, titre, id) {
 		BeeZikExtData[artist] = [];
 	var tab = BeeZikExtData[artist];
 	for (index in tab)
-		if (tab[index].id == id)
+		if (tab[index].id == id) {
+			tab[index].dl = 0;
 			return ;
+		}
 	BeeZikExtData[artist].push({t:titre, id:id, dl:0});
 }
 
@@ -91,6 +93,19 @@ function trierPanier() {
 	return BeeZikExtData;
 }
 
+function getNextSongInCart() {
+	var total = 0;
+	for (artiste in BeeZikExtData)
+		for (var i = 0; i < BeeZikExtData[artiste].length; i++)
+			if (BeeZikExtData[artiste][i].dl == 0)
+				return {
+							artist: artiste,
+							title: BeeZikExtData[artiste][i].t,
+							id: BeeZikExtData[artiste][i].id
+						};
+	return null;
+}
+
 function panierCount() {
 	var total = 0;
 	for (artiste in BeeZikExtData)
@@ -99,8 +114,18 @@ function panierCount() {
 	return total;
 }
 
-function backup() {
-	localStorage['BeeZikExt_backup'] = JSON.stringify(BeeZikExtData);
+function restore() { // à revoir ...
+	if (localStorage['BeeZikExt_backup'])
+		BeeZikExtData = JSON.parse(localStorage['BeeZikExt_backup']);
 }
 
+function backup() {
+	console.log('Backup');
+	if (localStorage['BeeZikExt_option_savePlaylistOnClose'] == 'yes')
+		localStorage['BeeZikExt_backup'] = JSON.stringify(BeeZikExtData);
+	else
+		localStorage['BeeZikExt_backup'] = "{}";
+}
+
+//restore();
 var backupInterval = setInterval(backup, 10000);

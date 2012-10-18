@@ -129,5 +129,9 @@ chrome.extension.sendRequest({func: "getDatas"},
 		console.log(liste);
 		contenuPlaylist.innerHTML = liste;
 		console.log('Fin fill_playlist');
+		
+		// Le temps de rétablir le player audio
+		jQuery('.playbtn').css('visibility', 'hidden');
+		jQuery('.playbtn').css('width', '0');
 	});
 }

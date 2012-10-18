@@ -14,6 +14,8 @@
    "content_scripts": [ {
       "all_frames": true,
       "js": [ "scripts/jquery-1.7.1.js", "scripts/beezik.js" ],
+      "css": [ "style/beezik.css" ],
+      "run_at": "document_end",
       "matches": [ "http://www.beezik.com/*", "https://www.beezik.com/*", "http://beezik.com/*", "https://beezik.com/*" ]
    } ],
 
@@ -29,12 +31,13 @@
 		"images/follow.png",
 		"images/unfollow.png",
 		"images/bouton_haut_page.png",
-		"images/add_cart.png"
+		"images/add_cart.png",
+		"images/caddy.gif"
    ],
 
    "name": "BeeZik Multi",
    "options_page": "options.html",
    "permissions": [ "tabs", "notifications", "http://beezik.com/*", "https://beezik.com/*", "http://www.beezik.com/*", "https://www.beezik.com/*" ],
    "update_url": "http://clients2.google.com/service/update2/crx",
-   "version": "3.99"
+   "version": "3.99.1"
 }
