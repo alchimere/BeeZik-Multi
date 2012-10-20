@@ -18,22 +18,19 @@ function	newSong(artist, title, id)
 // Must include prototype.js before
 
 // -- Audio -- //
-function changeZik(idBeeZik, idExt) {
+function changeZik(idBeeZik, idExt, artist, title) {
 	var player = jQuery("#audioPlayer");
 	player.trigger('pause');
 	player.attr('src', "http://www.beezik.com/anonymousMp3Path.htm?track=" + idBeeZik);
-
-	var song = JSON.parse(localStorage['BeeZikExt_cart_' + idExt]);
-	jQuery("#playingArtist").html(song.artist);
-	jQuery("#playingTitle").html(song.title);
+	
+	jQuery("#playingArtist").html(artist);
+	jQuery("#playingTitle").html(title);
 	player.trigger('play');
-	//jQuery("#divPlayer").css('display', 'block');
 	jQuery("#divPlayer").css('top', '0');
 }
 
 function stopZik() {
 	jQuery("#audioPlayer").trigger('pause');
-	//jQuery("#divPlayer").css('display', 'none');
 	jQuery("#divPlayer").css('top', '-30px');
 }
 
@@ -111,11 +108,7 @@ function	importer(replace)
 			break;
 		case 'import_b3' :
 		default :
-				/*if (localStorage['BeeZikExt_cart_id'] == 1)
-					remplacement = false;
-				else
-					remplacement = confirm("[OK] Pour remplacer l'ancienne liste\n[Annuler] Pour rajouter à la liste actuelle");*/
-				remplacement = replace; // TODO faire une fenetre de confirmation sans fonction 'confirm'
+				remplacement = replace;
 			break;
 	}
 	
@@ -138,17 +131,13 @@ function	importer(replace)
 										}
 									);
 	else
-		alert('Erreur !');
+		console.log('Erreur !');
 
 	chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});
 }
 
 function	open_songtab(str, songId)
 {
-	//localStorage['BeeZikExt_cart_' + i] = localStorage['BeeZikExt_cart_' + i].replace(/"downloaded":0/, '"downloaded":1');
-
-	//var texte_badge = '';
-	//chrome.browserAction.setBadgeText({text : texte_badge});
 	chrome.extension.sendRequest({func: "setDownloaded", id: songId},
 									function (response)
 									{
@@ -173,21 +162,22 @@ function	update_following_status()
     localStorage['BeeZik_followed_new'] = "false";
     for (var i = 0; i < followed_ids.length; i++)
     {
-	str = localStorage['BeeZikExt_followed_' + followed_ids[i]];
-	followed_hashes = str.split('|');
-	if (followed_hashes[0] != followed_hashes[1])
-	    localStorage['BeeZik_followed_new'] = "true";
+		str = localStorage['BeeZikExt_followed_' + followed_ids[i]];
+		followed_hashes = str.split('|');
+		if (followed_hashes[0] != followed_hashes[1])
+			localStorage['BeeZik_followed_new'] = "true";
     }
 
     if (localStorage['BeeZik_followed_new'] == "true")
-	chrome.browserAction.setIcon({ path : "images/icon_new.png" });
+		chrome.browserAction.setIcon({ path : "images/icon_new.png" });
     else
-	chrome.browserAction.setIcon({ path : "images/icon.png" });
+		chrome.browserAction.setIcon({ path : "images/icon.png" });
 }
 
 function	open_followedtab(idArtist)
 {
     chrome.tabs.create({ url: "http://www.beezik.com/memberMusicArtistAllAlbum.htm?artiste=" + idArtist });
+    // TODO changer addresse
 }
 
 function	set_followed(idArtist)
@@ -237,13 +227,6 @@ function	delete_song(id, songId, reload)
 		
 	
 	chrome.extension.sendRequest({func: "deleteMusic", id: songId});
-	
-	/*localStorage.removeItem('BeeZikExt_cart_' + id);
-
-	localStorage['BeeZikExt_cart_delete'] = parseInt(localStorage['BeeZikExt_cart_delete']) + 1;
-	var texte_badge = get_nb_song_to_dl();
-	chrome.browserAction.setBadgeText({text : texte_badge.toString()});
-	chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});*/
 
 	localStorage['BeeZikExt_playlist_state_modified'] = 1;
 	if (reload == "reload")

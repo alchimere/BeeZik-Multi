@@ -3,6 +3,10 @@
 *	firetonton@gmail.com
 */
 
+function updateTopBar() {
+	chrome.extension.sendRequest({func: "updateTopBar"});
+}
+
 jQuery(function () {
 	// Player
 	var audioPlayer = jQuery('#audioPlayer');
@@ -37,7 +41,8 @@ jQuery(function () {
 	
 	// Boutons haut
 	jQuery('#boutons #apropos').click(function () {
-			open_tab('http://forum.beezik.com/forum/viewtopic.php?f=48&t=10500')
+			//open_tab('http://forum.beezik.com/forum/viewtopic.php?f=48&t=10500');
+			open_tab(chrome.extension.getURL('changelog.html'));
 		});
 		
 	jQuery('#boutons #options').click(function () {
@@ -52,6 +57,7 @@ jQuery(function () {
 			chrome.extension.sendRequest({func: "eraseDownloaded"},
 				function(response)
 				{ fill_list(); });
+			updateTopBar();
 		});
 		
 	jQuery('#boutons #erase_all').click(function () {
@@ -131,7 +137,9 @@ jQuery(function () {
 			//changeZik(@ID@, @I@);
 			var id = jQuery(this).data('id');
 			var i = jQuery(this).data('i');
-			changeZik(id, i);
+			var artist = jQuery(this).data('artist');
+			var title = jQuery(this).data('title');
+			changeZik(id, i, artist, title);
 		});
 	
 	jQuery('#contenuPlaylist').on('mouseenter', 'tr', function () {

@@ -228,9 +228,10 @@
 					v:"3.99.1 (4 bêta 2)",
 					changes:[
 								"Bug : cette page ne s'affichait pas => fixé",
+								"Accès à cette page depuis la popup (changelogs)",
 								"Retour de la barre téléchargement suivant avec en plus l'artiste et le titre le la prochaine musique",
 								"Ajout d'une icône de caddie pour l'ajout au panier <img src=\""+chrome.extension.getURL('images/caddy.gif')+"\"/></span>",
-								"Retrait temporaire du bouton 'play' dans la popup"
+								"Bug : le bouton 'play' dans la popup ne fonctionnait plus => fixé"
 							]
 				}
 			]

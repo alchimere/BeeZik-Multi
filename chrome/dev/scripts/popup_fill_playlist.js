@@ -24,20 +24,19 @@ var tab_line = '<tr class="@CLASS@" id="tr_@J@" data-id="@ID@" data-puce="images
 									 data-id="@ID@" data-i="@I@"\
 									 style="visibility:hidden; cursor:pointer"\
 									 title="Supprimer"/>\
-									 <!--onclick="delete_song(@I@, \'notReload\'); fill_list();"/>-->\
 						</td>\
 						<td width="133">\
 							<div class="name" title="@ARTIST2@">\
 								<img src="images/play.gif" id="img_play_@ID@" class="playbtn" style="float:left; margin-right:5px; display:none; cursor:pointer"\
 										 title="Jouer extrait 30s"\
-										 data-id="@ID@" data-i="@I@"/>\
-										 <!--onclick="changeZik(@ID@, @I@);"-->\
-								<div class="name" class="click_event" data-id="@ID@" data-i="@I@"> <!--onclick="open_songtab(\'http://www.beezik.com/telecharger/t/@ID@\', @I@)"-->\
+										 data-id="@ID@" data-i="@I@"\
+										 data-artist="@ARTIST2@" data-title="@TITLE@"/>\
+								<div class="name" class="click_event" data-id="@ID@" data-i="@I@">\
 									@ARTIST1@\
 								</div>\
 							</div>\
 						</td>\
-						<td width="233" class="click_event" data-id="@ID@" data-i="@I@"> <!--onclick="open_songtab(\'http://www.beezik.com/telecharger/t/@ID@\', @I@)">-->\
+						<td width="233" class="click_event" data-id="@ID@" data-i="@I@">\
 							<div class="title" title="@ARTIST2@\n @TITLE@\nhttp://www.beezik.com/telecharger/t/@ID@">\
 								@TITLE@\
 							</div>\
@@ -131,7 +130,7 @@ chrome.extension.sendRequest({func: "getDatas"},
 		console.log('Fin fill_playlist');
 		
 		// Le temps de rétablir le player audio
-		jQuery('.playbtn').css('visibility', 'hidden');
-		jQuery('.playbtn').css('width', '0');
+		/*jQuery('.playbtn').css('visibility', 'hidden');
+		jQuery('.playbtn').css('width', '0');*/
 	});
 }

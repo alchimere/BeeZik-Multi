@@ -13,11 +13,11 @@
 
    "content_scripts": [ {
       "all_frames": true,
+      "run_at": "document_end",
       "js": [ "scripts/jquery-1.7.1.js", "scripts/beezik.js" ],
       "css": [ "style/beezik.css" ],
-      "run_at": "document_end",
       "matches": [ "http://www.beezik.com/*", "https://www.beezik.com/*", "http://beezik.com/*", "https://beezik.com/*" ]
-   } ],
+   }],
 
    "description": "T\u00E9l\u00E9chargement multiple sur BeeZik",
 
@@ -34,10 +34,12 @@
 		"images/add_cart.png",
 		"images/caddy.gif"
    ],
+   
+   "content_security_policy": "script-src 'self' 'unsafe-eval' https://pagead2.googlesyndication.com; object-src 'self'",
 
    "name": "BeeZik Multi",
    "options_page": "options.html",
-   "permissions": [ "tabs", "notifications", "http://beezik.com/*", "https://beezik.com/*", "http://www.beezik.com/*", "https://www.beezik.com/*" ],
+   "permissions": [ "tabs", "notifications", "http://beezik.com/*", "https://beezik.com/*", "http://www.beezik.com/*", "https://www.beezik.com/*"],
    "update_url": "http://clients2.google.com/service/update2/crx",
    "version": "3.99.1"
 }

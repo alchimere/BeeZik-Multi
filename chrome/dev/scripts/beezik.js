@@ -3,6 +3,12 @@
 *	firetonton@gmail.com
 */
 
+/*jQuery(function () {
+		document.write('<div id="oulaoup"></div>');
+	});*/
+
+chrome.extension.sendRequest({ func: "pickNewPageInfo" });
+
 // TODO suivi des artistes
 
 function addMusicToCart(p_artist, p_title, p_songId) {
@@ -132,6 +138,7 @@ function	followArtistButton(artists)
 
 nextSongBar();
 addCaddies();
+//addAd();
 //chrome.extension.sendRequest({func: "getFollowedArtists"}, followArtistButton);
 
 chrome.extension.sendRequest({func: "endBeezikJs"}, function(response){});

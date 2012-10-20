@@ -132,6 +132,11 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 													addTab(request.id);
 													break;*/
 													
+												case 'pickNewPageInfo' :
+													// -- http://yann.mustaki.fr/bee_zik_multi/push pour compter le nombre de pages par jour
+													jQuery.ajax({url: "http://yann.mustaki.fr/bee_zik_multi/push"});
+													break;
+													
 													
 												case 'setBadgeColor' :
 														clearTimeout(cur_no_drm_timer);
@@ -149,8 +154,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 														sendResponse({});
 													break;
 
+												case 'updateTopBar' :
 												case 'endBeezikJs' :
 														updateTopBar();
+														update_badge();
 														sendResponse({});
 													break;
 													
@@ -185,6 +192,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 													
 												case 'deleteMusic' :
 													retirer(request.id, request.artist);
+													update_badge();
 													break;
 													
 												case 'addAlbum' : // TODO		http://beezik.com/x-p777777 où 777777 id de l'album
