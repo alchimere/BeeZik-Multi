@@ -128,13 +128,13 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 										{
 											switch (request.func)
 											{
-												/*case 'tabId' :
-													addTab(request.id);
-													break;*/
+												case 'rateExt' :
+													chrome.tabs.create({ url: "https://chrome.google.com/webstore/detail/beezik-multi/kichkhjlfbekfdcfafdnkkagkciobepe/reviews" });
+													break;
 													
 												case 'pickNewPageInfo' :
 													// -- http://yann.mustaki.fr/bee_zik_multi/push pour compter le nombre de pages par jour
-													jQuery.ajax({url: "http://yann.mustaki.fr/bee_zik_multi/push"});
+													//jQuery.ajax({url: "http://yann.mustaki.fr/bee_zik_multi/push"});
 													break;
 													
 													
@@ -196,6 +196,8 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 													break;
 													
 												case 'addAlbum' : // TODO		http://beezik.com/x-p777777 où 777777 id de l'album
+													do_cmd_add_album(request.url);
+													update_badge();
 													break;
 													
 												case 'eraseDownloaded' :

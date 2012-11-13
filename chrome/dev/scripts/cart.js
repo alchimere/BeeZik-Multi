@@ -116,7 +116,12 @@ function panierCount() {
 
 function restore() { // à revoir ...
 	if (localStorage['BeeZikExt_backup'])
+	{
 		BeeZikExtData = JSON.parse(localStorage['BeeZikExt_backup']);
+		
+		for (artiste in BeeZikExtData)
+			BeeZikExtData[artiste] = [].concat(JSON.parse(BeeZikExtData[artiste]));
+	}
 }
 
 function backup() {

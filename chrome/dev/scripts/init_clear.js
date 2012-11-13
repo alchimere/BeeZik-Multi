@@ -20,6 +20,8 @@ function	initializeExt()
 	localStorage['BeeZikExt_playlist_size_modified'] = 0;
 	localStorage['BeeZikExt_playlist_state_modified'] = 1;
 	
+	restore();
+	
 	// Initialisation du badge
 	set_badge_text(get_nb_song_to_dl().toString());
 	setBadgeColor();

@@ -45,3 +45,58 @@
 .caddie_sep {
 	right: 52px !important;
 }
+
+div.songs-list {
+	margin-bottom: -12px !important;
+}
+
+ul.songs-list li.itemFirst {
+	height: 17px !important;
+	border: none;
+}
+
+ul.songs-list p.album {
+	overflow: visible;
+	position: relative;
+}
+
+.albumBubble {
+	cursor: pointer;
+	display: none;
+	position: absolute;
+	background-color: white;
+	top: 0px;
+	left: 0px;
+	padding-left: 8px;
+	padding-right: 8px;
+	border-radius: 8px;
+	box-shadow: 0 0 2px black;
+	-webkit-transition: opacity 0.2s linear, top 0.15s linear, background-color 0.15s linear;
+	text-transform: none;
+}
+
+.albumBubble:hover {
+	background-color: #EFEFEF;
+}
+
+#albums .carousel li figure {
+	position: relative !important;
+}
+
+#albums .carousel li figure .albumBubble {
+	display: block;
+	font-size: 11px;
+	padding: 8px;
+	top: 0; /*top: 40px;*/
+	left: 1px;
+	opacity: 0;
+	width: 148px;
+}
+
+#col-right aside .albumBubble {
+	margin: -10px 0 10px -8px;
+	padding: 8px;
+	/*width: 100%;*/
+	text-align: center;
+	display: block;
+}

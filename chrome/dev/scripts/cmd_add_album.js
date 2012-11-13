@@ -8,8 +8,8 @@
 // Ajout d'un album entier (en test)
 function	getPageContent(page)
 {
-	var begin = page.indexOf("<body>");
-	begin += 6;
+	var begin = page.indexOf("<body");
+	begin = page.indexOf('>', begin) + 1;
 
 	var end = page.indexOf("</body>");
 	if (page.indexOf('id="Footer"') != -1)
@@ -17,58 +17,37 @@ function	getPageContent(page)
 	return (page.substr(begin, end - begin));
 }
 
-var index = 0;
-var songLink = "";
+String.prototype.unescapeHtml = function () {
 
-// TODO Attention aux artistes avec 'de' dans le titre (ex : 'As de Trêfle')
-function	get_artist_title(str) // /!\ Fonction dupliquée dans beezik.js
-{
-	var last = str.lastIndexOf('de');
-
-	title = str.substr(0, last).replace(/&eacute;/g, 'e').replace(/T[ée]l[ée]charger gratuitement /i, '');
-	artist = str.substr(last + 2);
-	return (artist + ' - ' + title);
+  var temp = document.createElement("div");
+  temp.innerHTML = this;
+  var result = temp.childNodes[0].nodeValue;
+  temp.removeChild(temp.firstChild)
+  return result;
 }
 
-function	getNextSong(page)
+function	parsePageContent(page)
 {
-	var indexTmp;
-
-	if ((indexTmp = page.indexOf("/telecharger/t/", index)) != -1
-		|| (indexTmp = page.indexOf("/telecharger/mp3/", index)) != -1)
-	{
-		index = indexTmp;
-		for (var i = index; page[i] != '"'; i++)
-			;
-		songLink = "http://www.beezik.com#BeeZikExt:http://www.beezik.com" + page.substr(index, i-index);
-
-		if ((index = page.indexOf("title=\"", index)) == -1)
+	var indexTmp = 0;
+	
+	do {
+		indexTmp = page.indexOf('data-player="', indexTmp) + 13;
+		if (indexTmp >= 13)
 		{
-			songLink = "";
-			return true;
+			var indexTmpEnd = page.indexOf('"', indexTmp);
+			var song = page.substr(indexTmp, indexTmpEnd - indexTmp);
+			song = JSON.parse(song.unescapeHtml());
+			ajouter(song.artist, song.title, song.id);
 		}
-		index += 7;
-		for (var i = index; page[i] != '"'; i++)
-			;
-		songLink += 'BeeZikExt:' + get_artist_title(inhib_quotes(page.substr(index, i-index)));
-		//alert(songLink);
-		return true;
-	}
-	return false;
+	} while (indexTmp >= 13);
 }
 
 function	parseRecievedPage(page)
 {
-	index = 0;
 	page = getPageContent(page);
-	while (getNextSong(page))
-	{
-		if (songLink != "")
-			add_url_to_cart(songLink);
-		songLink = "";
-	}
-	localStorage['BeeZikExt_playlist_size_modified'] = 1;
+	parsePageContent(page);
 	updateTopBar();
+	update_badge();
 }
 
 function	do_cmd_add_album(url)

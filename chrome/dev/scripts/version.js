@@ -3,7 +3,7 @@
  * firetonton@gmail.com
  */
  
- var CURRENT_VERSION = "3.99.1 (4 bêta 2)";
+ var CURRENT_VERSION = "3.99.3 (4 bêta 3)";
  
  // TODO compléter après 2.1
  
@@ -219,19 +219,29 @@
 					changes:[
 								"Rajout de la page d'information sur les changements effectués",
 								"Suppression temporaire des fonctions d'import/export, d'ajout d'album entier, de lecture et de recherche",
-								"Adaptaion de l'extension à la nouvelle version du site (ajout de musique une à une seulement pour l'instant)",
+								"Adaptation de l'extension à la nouvelle version du site (ajout de musique une à une seulement pour l'instant)",
 								"Remaniement total du stockage et du tri des données",
 								"Modification de tout le code pour convenir aux nouvelles exigences de Google Chrome"
 							]
 				},
 				{
-					v:"3.99.1 (4 bêta 2)",
+					v:"3.99.2 (4 bêta 2)",
 					changes:[
 								"Bug : cette page ne s'affichait pas => fixé",
 								"Accès à cette page depuis la popup (changelogs)",
 								"Retour de la barre téléchargement suivant avec en plus l'artiste et le titre le la prochaine musique",
 								"Ajout d'une icône de caddie pour l'ajout au panier <img src=\""+chrome.extension.getURL('images/caddy.gif')+"\"/></span>",
 								"Bug : le bouton 'play' dans la popup ne fonctionnait plus => fixé"
+							]
+				},
+				{
+					v:"3.99.3 (4 bêta 3)",
+					changes:[
+								"Ajout d'une popunder sur la page d'artiste pour ajouter un album entier au panier",
+								"Ajout du même popunder sur le carousel des albums",
+								"Ajout d'un bouton pour ajouter tout l'album sur la page d'un album",
+								"Correction du bug lors du clic sur la barre de téléchargement suivant",
+								"Restauration de la sauvegarde de playlist après fermeture du navigateur"
 							]
 				}
 			]

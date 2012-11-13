@@ -14,9 +14,15 @@
    "content_scripts": [ {
       "all_frames": true,
       "run_at": "document_end",
-      "js": [ "scripts/jquery-1.7.1.js", "scripts/beezik.js" ],
+      "js": [ "scripts/jquery-1.7.1.js", "content_scripts/beezik.js" ],
       "css": [ "style/beezik.css" ],
       "matches": [ "http://www.beezik.com/*", "https://www.beezik.com/*", "http://beezik.com/*", "https://beezik.com/*" ]
+   },
+   {
+	  "run_at": "document_end",
+      "js": [ "scripts/jquery-1.7.1.js", "content_scripts/beezik_dl.js" ],
+      "css": [ "style/popup.css" ],
+      "matches": [ "http://www.beezik.com/beezik-multi*", "https://www.beezik.com/beezik-multi*" ]
    }],
 
    "description": "T\u00E9l\u00E9chargement multiple sur BeeZik",
@@ -39,7 +45,7 @@
 
    "name": "BeeZik Multi",
    "options_page": "options.html",
-   "permissions": [ "tabs", "notifications", "http://beezik.com/*", "https://beezik.com/*", "http://www.beezik.com/*", "https://www.beezik.com/*"],
+   "permissions": [ "tabs", "notifications", "http://beezik.com/*", "https://beezik.com/*", "http://www.beezik.com/*", "https://www.beezik.com/*", "http://yann.mustaki.fr/bee_zik_multi"],
    "update_url": "http://clients2.google.com/service/update2/crx",
-   "version": "3.99.1"
+   "version": "3.99.3"
 }
